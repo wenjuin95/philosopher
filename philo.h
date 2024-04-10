@@ -6,7 +6,7 @@
 /*   By: welow < welow@student.42kl.edu.my>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 11:20:21 by welow             #+#    #+#             */
-/*   Updated: 2024/04/10 18:12:10 by welow            ###   ########.fr       */
+/*   Updated: 2024/04/10 23:19:42 by welow            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,37 +24,6 @@
 # define SUCCESS 1
 # define RED "\033[0;31m"
 # define GREEN "\033[0;32m"
-
-typedef struct s_philo	t_philo;
-
-/*
-*	1. the number of philo
-*	2. time to die for each philo
-*	3. time to eat for each philo
-*	4. time to sleep for each philo
-*	5. number of philo to eat
-* 	6. check either done eat or die
-*	7. for the philo
-*	8. for the fork
-*	9. for the mutex
-*	10. for the left fork
-*	11. for the right fork
-*/
-typedef struct table
-{
-	int					num_philo;
-	int					time_to_die;
-	int					time_to_eat;
-	int					time_to_sleep;
-	int					num_of_philo_eat;
-	int					time_for_start_table;
-	int					done_or_die;
-	t_philo				*philo;
-	pthread_mutex_t		*fork;
-	pthread_mutex_t		mutex;
-	pthread_mutex_t		*left_fork;
-	pthread_mutex_t		*right_fork;
-}	t_table;
 
 /*
 *	1. philosopher id
@@ -79,10 +48,39 @@ typedef struct s_philo
 	int					time_to_sleep;
 	int					time_to_die;
 	pthread_t			thread_id;
-	t_table				*table;
+	struct s_table		*table;
 	pthread_mutex_t		*left_fork;
 	pthread_mutex_t		*right_fork;
 }	t_philo;
+
+/*
+*	1. the number of philo
+*	2. time to die for each philo
+*	3. time to eat for each philo
+*	4. time to sleep for each philo
+*	5. number of philo to eat
+* 	6. check either done eat or die
+*	7. for the philo
+*	8. for the fork
+*	9. for the mutex
+*	10. for the left fork
+*	11. for the right fork
+*/
+typedef struct s_table
+{
+	int					num_philo;
+	int					time_to_die;
+	int					time_to_eat;
+	int					time_to_sleep;
+	int					num_of_philo_eat;
+	int					time_for_start_table;
+	int					done_or_die;
+	t_philo				*philo;
+	pthread_mutex_t		*fork;
+	pthread_mutex_t		mutex;
+	pthread_mutex_t		*left_fork;
+	pthread_mutex_t		*right_fork;
+}	t_table;
 
 void	error_output(const char *str);
 void	philo_say(t_philo *philos, const char *str);
@@ -99,7 +97,7 @@ int		make_philo(t_table *table);
 
 void	start_table(t_table *table);
 void	*philo_move(void *arg);
-void	*check_philo_is_die(t_table *table);
+void	*check_philo_is_die(void *arg);
 int		philo_die(t_table *table);
 
 int		philo_fork(t_philo *philos);

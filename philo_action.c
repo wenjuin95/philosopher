@@ -6,24 +6,12 @@
 /*   By: welow < welow@student.42kl.edu.my>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 15:38:02 by welow             #+#    #+#             */
-/*   Updated: 2024/04/10 18:24:12 by welow            ###   ########.fr       */
+/*   Updated: 2024/04/10 23:19:08 by welow            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-//purpose of this function is to check if the philo is done or die
-int	philo_finish(t_philo *philos)
-{
-	pthread_mutex_lock(&philos->table->mutex);
-	if (philos->table->done_or_die == 1)
-	{
-		pthread_mutex_unlock(&philos->table->mutex);
-		return (1);
-	}
-	pthread_mutex_unlock(&philos->table->mutex);
-	return (0);
-}
 
 /*
 *	1. if philo is even, take the right fork first
@@ -45,7 +33,7 @@ int	philo_fork(t_philo *philos)
 		pthread_mutex_lock(philos->right_fork);
 	else
 		pthread_mutex_lock(philos->left_fork);
-	if (philo_finish(philos) == 1)
+	if (philo_finish(philos) == 0)
 		philo_say(philos, "has taken a fork");
 	if (philos->philo_id % 2 == 0)
 	{
@@ -56,8 +44,8 @@ int	philo_fork(t_philo *philos)
 	}
 	else
 	{
-		if (pthread_mutex_lock(philos->left_fork) != 0)
-			return (pthread_mutex_unlock(philos->right_fork), 1);
+		if (pthread_mutex_lock(philos->right_fork) != 0)
+			return (pthread_mutex_unlock(philos->left_fork), 1);
 		if (philo_finish(philos) == 0)
 			philo_say(philos, "has taken a fork");
 	}
@@ -81,7 +69,7 @@ void	philo_eating(t_philo *philos)
 	pthread_mutex_unlock(&philos->table->mutex);
 	ft_usleep(philos->table->time_to_eat, philos);
 	pthread_mutex_lock(&philos->table->mutex);
-	if (philos->num_meal != -1)
+	if (philos->num_meal != -1) // check
 		philos->num_meal++;
 	pthread_mutex_unlock(&philos->table->mutex);
 	pthread_mutex_unlock(philos->left_fork);
@@ -99,4 +87,17 @@ void	philo_sleeping(t_philo *philos)
 void	philo_thinking(t_philo *philos)
 {
 	philo_say(philos, "is thinking");
+}
+
+//purpose of this function is to check if the philo is done or die
+int	philo_finish(t_philo *philos)
+{
+	pthread_mutex_lock(&philos->table->mutex);
+	if (philos->table->done_or_die == 1)
+	{
+		pthread_mutex_unlock(&philos->table->mutex);
+		return (1);
+	}
+	pthread_mutex_unlock(&philos->table->mutex);
+	return (0);
 }

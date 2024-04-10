@@ -6,7 +6,7 @@
 /*   By: welow < welow@student.42kl.edu.my>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 13:11:03 by welow             #+#    #+#             */
-/*   Updated: 2024/04/10 22:54:35 by welow            ###   ########.fr       */
+/*   Updated: 2024/04/11 00:53:25 by welow            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,17 @@ void	error_output(const char *str)
 	exit(EXIT_FAILURE);
 }
 
-//purpose is to print if the philo is done or die
-void	philo_say(t_philo *philos, const char *str)
-{
-	if (philo_finish(philos) == 0)
-	{
-		pthread_mutex_lock(&philos->table->mutex);
-		printf("%d %d %s\n", (get_time() - philos->table->time_for_start_table),
-			philos->philo_id, str);
-		pthread_mutex_unlock(&philos->table->mutex);
-	}
-}
+// //purpose is to print if the philo is done or die
+// void	philo_say(t_philo *philos, const char *str)
+// {
+// 	if (philo_finish(philos) == 0)
+// 	{
+// 		pthread_mutex_lock(&philos->table->mutex);
+// 		printf("%d %d %s\n", (get_time() - philos->table->time_for_start_table),
+// 			philos->philo_id, str);
+// 		pthread_mutex_unlock(&philos->table->mutex);
+// 	}
+// }
 
 //use atol to make sure not to overflow
 int	ft_atol(const char *str)
