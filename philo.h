@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: welow <welow@student.42.fr>                +#+  +:+       +#+        */
+/*   By: welow < welow@student.42kl.edu.my>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 11:20:21 by welow             #+#    #+#             */
-/*   Updated: 2024/04/08 16:14:18 by welow            ###   ########.fr       */
+/*   Updated: 2024/04/10 18:12:10 by welow            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ typedef struct table
 	int					done_or_die;
 	t_philo				*philo;
 	pthread_mutex_t		*fork;
-	pthread_mutex_t		*mutex;
+	pthread_mutex_t		mutex;
 	pthread_mutex_t		*left_fork;
 	pthread_mutex_t		*right_fork;
 }	t_table;
@@ -88,15 +88,24 @@ void	error_output(const char *str);
 void	philo_say(t_philo *philos, const char *str);
 int		ft_atol(const char *str);
 void	check_digit(char **av);
+void	join_thread(t_table *table);
+int		get_time(void);
+void	ft_usleep(int time, t_philo *philos);
+void	free_all(t_table *table);
 
 void	parse_input(t_table *table, char **av);
 int		assign_mutex(t_table *table);
 int		make_philo(t_table *table);
 
 void	start_table(t_table *table);
-void	philo_move(void *arg);
+void	*philo_move(void *arg);
+void	*check_philo_is_die(t_table *table);
+int		philo_die(t_table *table);
 
 int		philo_fork(t_philo *philos);
 int		philo_finish(t_philo *philos);
+void	philo_eating(t_philo *philos);
+void	philo_sleeping(t_philo *philos);
+void	philo_thinking(t_philo *philos);
 
 #endif

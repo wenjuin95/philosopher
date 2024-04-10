@@ -4,7 +4,7 @@ CC = gcc
 
 CFLAGS = -Wall -Wextra -Werror
 
-SRC = philo.c utils.c init.c philo_action.c 
+SRC = philo.c utils.c utils_2.c init.c philo_action.c 
 
 BONUS = 
 

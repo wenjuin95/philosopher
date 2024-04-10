@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: welow <welow@student.42.fr>                +#+  +:+       +#+        */
+/*   By: welow < welow@student.42kl.edu.my>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 15:07:18 by welow             #+#    #+#             */
-/*   Updated: 2024/04/08 15:23:25 by welow            ###   ########.fr       */
+/*   Updated: 2024/04/10 18:27:36 by welow            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int	main(int ac, char **av)
 	check_digit(av);
 	parse_input(&table, av);
 	start_table(&table);
+	free_all(&table);
 }
 
 /*
@@ -70,12 +71,12 @@ int	assign_mutex(t_table *table)
 	while (i < table->num_philo)
 	{
 		if (pthread_mutex_init(&table->fork[i], NULL) != 0)
-			return (FAIL);
+			return (0);
 		i++;
 	}
 	if (pthread_mutex_init(&table->mutex, NULL) != 0)
-		return (FAIL);
-	return (SUCCESS);
+		return (0);
+	return (1);
 }
 
 /*
