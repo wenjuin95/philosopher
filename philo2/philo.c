@@ -6,102 +6,98 @@
 /*   By: welow < welow@student.42kl.edu.my>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 15:07:18 by welow             #+#    #+#             */
-/*   Updated: 2024/04/11 00:55:05 by welow            ###   ########.fr       */
+/*   Updated: 2024/04/11 19:10:24 by welow            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+void	check_input(char **av);
+void	init_table(t_table *table, t_philo *philos);
+void	init_fork(pthread_mutex_t *fork, char **av);
+void	init_philo(t_table *table, t_philo *philos, pthread_mutex_t *fork,
+			char **av);
+
 int	main(int ac, char **av)
 {
-	// t_table			table;
-	// t_philo			*philos;
-	// pthread_mutex_t *fork;
+	t_table			table;
+	t_philo			philos[200];
+	pthread_mutex_t	fork[200];
+	//int				num_philo;
 
 	if (ac < 5 || ac > 6)
 		error_output("wrong argument\n");
 	check_digit(av);
-	parse_input(av);
-	// make_fork(&philos, fork);
-	// make_philo();
+	check_input(av);
+	//num_philo = ft_atol(av[1]);
+	// philos = malloc(sizeof(t_philo) * num_philo);
+	// if (philos == NULL)
+	// 	error_output("malloc failed\n");
+	// fork = malloc(sizeof(pthread_mutex_t) * num_philo);
+	// if (fork == NULL)
+	// 	error_output("malloc failed\n");
+	init_table(&table, philos);
+	init_philo(&table, philos, fork, av);
+	init_fork(fork, av);
+	start_table(&table, fork);
+	destroy_all_mutex(&table, fork);
+	// free(philos);
+	// free(fork);
 }
 
-
-t_philo	parse_input(char **av)
+void	check_input(char **av)
 {
-	t_philo	*philos;
-
-	philos = malloc(sizeof(t_philo));
-	if (philos == NULL)
-		error_output("malloc failed\n");
-	philos->num_philo = ft_atol(av[1]);
-	philos->time_to_die = ft_atol(av[2]);
-	philos->time_to_eat = ft_atol(av[3]);
-	philos->time_to_sleep = ft_atol(av[4]);
-	printf("num_philo: %d\n", philos->num_philo);
-	printf("time_to_die: %d\n", philos->time_to_die);
-	printf("time_to_eat: %d\n", philos->time_to_eat);
-	printf("time_to_sleep: %d\n\n", philos->time_to_sleep);
-	if (av[5] != NULL)
-	{
-		philos->num_for_philo_eat = ft_atol(av[5]);
-	}
-	else
-		philos->num_for_philo_eat = -1;
-	if (philos->num_philo < 2 || philos->num_philo > 200)
+	if (ft_atol(av[1]) < 2 || ft_atol(av[1]) > 200)
 		error_output("number of philo must be above 2 and not more than 200\n");
-	if (philos->time_to_die < 60 || philos->time_to_eat < 60
-		|| philos->time_to_sleep < 60)
+	if (ft_atol(av[2]) < 60 || ft_atol(av[3]) < 60
+		|| ft_atol(av[4]) < 60)
 		error_output("time must be above 60ms\n");
-	return (philos);
+	if (av[5] != NULL && ft_atol(av[5]) < 1)
+		error_output("number of meal must be above 1\n");
 }
 
-/*
-*	1. make a philo memory for each of the philo
-*	note: assign the philo id (purpose of i+1 is to start from 1)
-*	note: (i + 1) % table->num_philo is to make sure the last 
-*		  philo can get the first fork
-*/
-// void	make_philo(t_philo *philo)
-// {
-// 	t_philo	*philos;
-// 	int		i;
+void	init_table(t_table *table, t_philo *philos)
+{
+	table->done_or_die = 0;
+	table->philo = philos;
+	pthread_mutex_init(&table->dead_lock, NULL);
+	pthread_mutex_init(&table->write_lock, NULL);
+	pthread_mutex_init(&table->meal_lock, NULL);
+}
 
-// 	i = 0;
-// 	table->philo = malloc(sizeof(t_philo) * philo->num_philo);
-// 	if (table->philo == NULL)
-// 		return (NULL);
-// 	while (i < philo->num_philo)
-// 	{
-// 		philos[i].philo_id = i + 1;
-// 		philos[i].eating = 0;
-// 		philos[i].num_meal = 0;
-// 		philos[i].time_start_eat = get_current_time();
-// 		philos[i].last_meal = get_current_time();
-// 		philos[i].time_to_eat = philo->time_to_eat;
-// 		philos[i].time_to_sleep = philo->time_to_sleep;
-// 		philos[i].time_to_die = philo->time_to_die;
-// 		philos[i].num_for_philo_eat = philo->num_of_philo_eat;
-// 		philos[i].write_lock = &philo->write_lock;
-// 		philos[i].dead_lock = &philo->dead_lock;
-// 		philos[i].meal_lock = &philo->meal_lock;
-// 		i++;
-// 	}
-// 	return (SUCCESS);
-// }
+void	init_fork(pthread_mutex_t *fork, char **av)
+{
+	int	i;
 
-// void	make_fork(t_philo *philo, pthread_mutex_t *fork)
-// {
-// 	int				i;
+	i = -1;
+	while (++i < ft_atol(av[1]))
+		pthread_mutex_init(&fork[i], NULL);
+}
 
-// 	fork = malloc(sizeof(pthread_mutex_t) * philo->num_philo);
-// 	if (fork == NULL)
-// 		return (NULL);
-// 	i = 0;
-// 	while (i < philo->num_philo)
-// 	{
-// 		pthread_mutex_init(&fork[i], NULL);
-// 		i++;
-// 	}
-// }
+void	init_philo(t_table *table, t_philo *philos, pthread_mutex_t *fork,
+	char **av)
+{
+	int	i;
+	int	num_philo;
 
+	num_philo = ft_atol(av[1]);
+	i = -1;
+	while (++i < num_philo)
+	{
+		assign_value(&philos[i], av);
+		philos[i].philo_id = i + 1;
+		philos[i].eating = 0;
+		philos[i].num_meal = 0;
+		philos[i].time_start_eat = get_time();
+		philos[i].last_meal = get_time();
+		philos[i].write_lock = &table->write_lock;
+		philos[i].dead_lock = &table->dead_lock;
+		philos[i].meal_lock = &table->meal_lock;
+		philos[i].die = &table->done_or_die;
+		philos[i].left_fork = &fork[i];
+		if (i == 0)
+			philos[i].right_fork = &fork[philos[i].num_philo - 1];
+		else
+			philos[i].right_fork = &fork[i - 1];
+	}
+}

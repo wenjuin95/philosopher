@@ -6,11 +6,23 @@
 /*   By: welow < welow@student.42kl.edu.my>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 13:11:03 by welow             #+#    #+#             */
-/*   Updated: 2024/04/11 00:53:25 by welow            ###   ########.fr       */
+/*   Updated: 2024/04/11 17:34:19 by welow            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+void	destroy_all_mutex(t_table *table, pthread_mutex_t *fork)
+{
+	int	i;
+
+	i = -1;
+	pthread_mutex_destroy(&table->dead_lock);
+	pthread_mutex_destroy(&table->write_lock);
+	pthread_mutex_destroy(&table->meal_lock);
+	while (++i < table->philo->num_philo) //philo[0]
+		pthread_mutex_destroy(&fork[i]);
+}
 
 //for error output
 void	error_output(const char *str)
@@ -19,17 +31,6 @@ void	error_output(const char *str)
 	exit(EXIT_FAILURE);
 }
 
-// //purpose is to print if the philo is done or die
-// void	philo_say(t_philo *philos, const char *str)
-// {
-// 	if (philo_finish(philos) == 0)
-// 	{
-// 		pthread_mutex_lock(&philos->table->mutex);
-// 		printf("%d %d %s\n", (get_time() - philos->table->time_for_start_table),
-// 			philos->philo_id, str);
-// 		pthread_mutex_unlock(&philos->table->mutex);
-// 	}
-// }
 
 //use atol to make sure not to overflow
 int	ft_atol(const char *str)
