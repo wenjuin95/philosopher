@@ -30,9 +30,9 @@ void	*philo_move(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-	if (philo->philo_id % 2 == 0) //is even
-		ft_usleep(1);
-	while (philo_done_die(philo) == 0)//0 is false
+	if (philo->philo_id % 2 == 1) //is odd
+		ft_usleep(philo->time_to_eat); //sleep for 100ms
+	while (philo_done_die(philo) == 0) //0 is false
 	{
 		philo_eat(philo);
 		philo_sleep(philo);
@@ -43,10 +43,11 @@ void	*philo_move(void *arg)
 
 int	start_table(t_table *table, pthread_mutex_t *fork)
 {
-	int	i;
+	int			i;
 	pthread_t	check_philo;
 
-	if (pthread_create(&check_philo, NULL, &check_philo_condition, table->philo) != 0)
+	if (pthread_create(&check_philo, NULL, &check_philo_condition,
+			table->philo) != 0)
 		destroy_all_mutex(table, fork);
 	i = -1;
 	while (++i < table->philo->num_philo) //philo[0]

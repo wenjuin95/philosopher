@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: welow < welow@student.42kl.edu.my>         +#+  +:+       +#+        */
+/*   By: welow <welow@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 15:07:18 by welow             #+#    #+#             */
-/*   Updated: 2024/04/11 19:10:24 by welow            ###   ########.fr       */
+/*   Updated: 2024/04/12 10:08:48 by welow            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,31 +18,47 @@ void	init_fork(pthread_mutex_t *fork, char **av);
 void	init_philo(t_table *table, t_philo *philos, pthread_mutex_t *fork,
 			char **av);
 
+// int	main(int ac, char **av)
+// {
+// 	t_table			table;
+// 	t_philo			philos[200];
+// 	pthread_mutex_t	fork[200];
+
+// 	if (ac < 5 || ac > 6)
+// 		error_output("wrong argument\n");
+// 	check_digit(av);
+// 	check_input(av);
+// 	init_table(&table, philos);
+// 	init_philo(&table, philos, fork, av);
+// 	init_fork(fork, av);
+// 	start_table(&table, fork);
+// 	destroy_all_mutex(&table, fork);
+// }
 int	main(int ac, char **av)
 {
 	t_table			table;
-	t_philo			philos[200];
-	pthread_mutex_t	fork[200];
-	//int				num_philo;
+	t_philo			*philos;
+	pthread_mutex_t	*fork;
+	int				num_philo;
 
 	if (ac < 5 || ac > 6)
 		error_output("wrong argument\n");
 	check_digit(av);
 	check_input(av);
-	//num_philo = ft_atol(av[1]);
-	// philos = malloc(sizeof(t_philo) * num_philo);
-	// if (philos == NULL)
-	// 	error_output("malloc failed\n");
-	// fork = malloc(sizeof(pthread_mutex_t) * num_philo);
-	// if (fork == NULL)
-	// 	error_output("malloc failed\n");
+	num_philo = ft_atol(av[1]);
+	philos = malloc(sizeof(t_philo) * num_philo + 1); //+1 because the philo start from 1
+	if (philos == NULL)
+		error_output("malloc failed\n");
+	fork = malloc(sizeof(pthread_mutex_t) * num_philo + 1);
+	if (fork == NULL)
+		error_output("malloc failed\n");
 	init_table(&table, philos);
 	init_philo(&table, philos, fork, av);
 	init_fork(fork, av);
 	start_table(&table, fork);
 	destroy_all_mutex(&table, fork);
-	// free(philos);
-	// free(fork);
+	free(philos);
+	free(fork);
 }
 
 void	check_input(char **av)

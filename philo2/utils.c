@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: welow < welow@student.42kl.edu.my>         +#+  +:+       +#+        */
+/*   By: welow <welow@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 13:11:03 by welow             #+#    #+#             */
-/*   Updated: 2024/04/11 17:34:19 by welow            ###   ########.fr       */
+/*   Updated: 2024/04/12 11:48:27 by welow            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	destroy_all_mutex(t_table *table, pthread_mutex_t *fork)
 	pthread_mutex_destroy(&table->dead_lock);
 	pthread_mutex_destroy(&table->write_lock);
 	pthread_mutex_destroy(&table->meal_lock);
-	while (++i < table->philo->num_philo) //philo[0]
+	while (++i < table->philo->num_philo)
 		pthread_mutex_destroy(&fork[i]);
 }
 
