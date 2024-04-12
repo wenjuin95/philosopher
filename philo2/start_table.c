@@ -16,7 +16,7 @@
 int	philo_done_die(t_philo *philo)
 {
 	pthread_mutex_lock(philo->dead_lock);
-	if (*philo->die == 1)
+	if (*philo->done_or_die == 1)
 	{
 		pthread_mutex_unlock(philo->dead_lock);
 		return (1);
@@ -25,14 +25,21 @@ int	philo_done_die(t_philo *philo)
 	return (0);
 }
 
+//function that check which philo start eating first
+/*
+*	1. even philo wait for 100ms before start
+*	2. check each philo is dead or done eating (0 is mean false)
+*	3. each philo start eating, sleep and think
+*/
+
 void	*philo_move(void *arg)
 {
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-	if (philo->philo_id % 2 == 1) //is odd
-		ft_usleep(philo->time_to_eat); //sleep for 100ms
-	while (philo_done_die(philo) == 0) //0 is false
+	if (philo->philo_id % 2 == 0)
+		ft_usleep(1);
+	while (philo_done_die(philo) == 0)
 	{
 		philo_eat(philo);
 		philo_sleep(philo);
@@ -41,7 +48,14 @@ void	*philo_move(void *arg)
 	return (NULL);
 }
 
-int	start_table(t_table *table, pthread_mutex_t *fork)
+/*
+*	1. first create a thread to check if philo is dead or done eating
+*	2. create a thread for each philo to eat, sleep and think
+*	3. join the check_philo thread
+*	4. join all philo thread
+*	in this 
+*/
+void	start_table(t_table *table, pthread_mutex_t *fork)
 {
 	int			i;
 	pthread_t	check_philo;
@@ -50,7 +64,7 @@ int	start_table(t_table *table, pthread_mutex_t *fork)
 			table->philo) != 0)
 		destroy_all_mutex(table, fork);
 	i = -1;
-	while (++i < table->philo->num_philo) //philo[0]
+	while (++i < table->philo->num_philo)
 	{
 		if (pthread_create(&table->philo[i].thread, NULL, &philo_move,
 				&table->philo[i]) != 0)
@@ -59,10 +73,9 @@ int	start_table(t_table *table, pthread_mutex_t *fork)
 	if (pthread_join(check_philo, NULL) != 0)
 		destroy_all_mutex(table, fork);
 	i = -1;
-	while (++i < table->philo->num_philo) //philo[0]
+	while (++i < table->philo->num_philo)
 	{
 		if (pthread_join(table->philo[i].thread, NULL) != 0)
 			destroy_all_mutex(table, fork);
 	}
-	return (0);
 }

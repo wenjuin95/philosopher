@@ -6,7 +6,7 @@
 /*   By: welow <welow@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 13:11:03 by welow             #+#    #+#             */
-/*   Updated: 2024/04/12 11:48:27 by welow            ###   ########.fr       */
+/*   Updated: 2024/04/12 16:12:17 by welow            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void	error_output(const char *str)
 	printf("%s%s", RED, str);
 	exit(EXIT_FAILURE);
 }
-
 
 //use atol to make sure not to overflow
 int	ft_atol(const char *str)

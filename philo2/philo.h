@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: welow < welow@student.42kl.edu.my>         +#+  +:+       +#+        */
+/*   By: welow <welow@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 11:20:21 by welow             #+#    #+#             */
-/*   Updated: 2024/04/11 19:40:24 by welow            ###   ########.fr       */
+/*   Updated: 2024/04/12 16:16:23 by welow            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,25 @@
 # define RED "\033[0;31m"
 # define GREEN "\033[0;32m"
 
+/*
+*	1. number of philo
+*	2. each philo id
+*	3. eating flag
+*	4. number of meal
+*	5. last meal time
+*	6. time to eat
+*	7. time to sleep
+*	8. time to die
+*	9. time that start to eat
+*	10. number of meal that philo need to eat
+*	11. array of done or die
+*	12. thread of each philo
+*	13. array of left fork
+*	14. array of right fork
+*	15. array of write lock
+*	16. array of dead lock
+*	17. array of meal lock
+*/
 typedef struct s_philo
 {
 	int				num_philo;
@@ -37,7 +56,7 @@ typedef struct s_philo
 	int				time_to_die;
 	int				time_start_eat;
 	int				num_for_philo_eat;
-	int				*die;
+	int				*done_or_die;
 	pthread_t		thread;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
@@ -46,6 +65,14 @@ typedef struct s_philo
 	pthread_mutex_t	*meal_lock;
 }	t_philo;
 
+/*
+*	1. done or die flag
+*	2. dead lock
+*	3. write lock
+*	4. meal lock
+*	5. array of fork (how many fork for each philo)
+*	6. array of philo
+*/
 typedef struct s_table
 {
 	int				done_or_die;
@@ -72,7 +99,7 @@ void	init_philo(t_table *table, t_philo *philos, pthread_mutex_t *fork,
 //start_table.c
 int		philo_done_die(t_philo *philo);
 void	*philo_move(void *arg);
-int		start_table(t_table *table, pthread_mutex_t *fork);
+void	start_table(t_table *table, pthread_mutex_t *fork);
 
 //utils_2.c
 int		ft_usleep(int time);

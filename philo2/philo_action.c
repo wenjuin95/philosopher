@@ -17,32 +17,47 @@ void	philo_think(t_philo *philo)
 	philo_say("is thinking", philo, philo->philo_id);
 }
 
+/*
+*	wait for the time to sleep given
+*/
 void	philo_sleep(t_philo *philo)
 {
 	philo_say("is sleeping", philo, philo->philo_id);
-	ft_usleep(philo->time_to_sleep); //sleep for the time to sleep
+	ft_usleep(philo->time_to_sleep);
 }
 
+/*
+*	1. philo take the right fork
+*	2. check if only 1 philo, just sleep and return and unlock the right fork
+*	3. if not philo take the left fork
+*	4. philo start to eat and on flag eating (1 is on)
+*	5. lock the meal_lock 
+*		a.to get the last meal time and increment number of meal for each philo
+*	6. unlock the meal_lock
+* 	7. wait for next meal with time to eat given
+*	8. philo is not eating (0 is off)
+*	9. unlock the left and right fork
+*/
 void	philo_eat(t_philo *philo)
 {
 	pthread_mutex_lock(philo->right_fork);
 	philo_say("has taken a fork", philo, philo->philo_id);
 	if (philo->num_philo == 1)
 	{
-		ft_usleep(philo->time_to_die); //if there is only 1 philo, it will die
+		ft_usleep(philo->time_to_die);
 		pthread_mutex_unlock(philo->right_fork);
-		return ; //return main function
+		return ;
 	}
 	pthread_mutex_lock(philo->left_fork);
 	philo_say("has taken a fork", philo, philo->philo_id);
-	philo->eating = 1; //1 is philo is eating
+	philo->eating = 1;
 	philo_say("is eating", philo, philo->philo_id);
 	pthread_mutex_lock(philo->meal_lock);
-	philo->last_meal = get_time(); //get the time of the last meal
-	philo->num_meal++; //increment the number of meal
+	philo->last_meal = get_time();
+	philo->num_meal++;
 	pthread_mutex_unlock(philo->meal_lock);
-	ft_usleep(philo->time_to_eat); //sleep for the time to eat
-	philo->eating = 0; //0 is philo is not eating
+	ft_usleep(philo->time_to_eat);
+	philo->eating = 0;
 	pthread_mutex_unlock(philo->left_fork);
 	pthread_mutex_unlock(philo->right_fork);
 }

@@ -12,7 +12,7 @@
 
 #include "philo.h"
 
-//(get_time() - philo->last_meal) is the time since the last meal
+//(get_time() - philo->last_meal) is the time since philo last ate
 //philo->eating == 0 is the philo is not eating
 int	philo_die(t_philo *philo, int time_to_die)
 {
@@ -27,6 +27,8 @@ int	philo_die(t_philo *philo, int time_to_die)
 	return (0);
 }
 
+//check if philo is dead
+// 1 is true
 int	check_dead(t_philo *philo)
 {
 	int	i;
@@ -34,11 +36,11 @@ int	check_dead(t_philo *philo)
 	i = -1;
 	while (++i < philo->num_philo)
 	{
-		if (philo_die(&philo[i], philo[i].time_to_die) == 1) //1 is true
+		if (philo_die(&philo[i], philo[i].time_to_die) == 1)
 		{
 			philo_say("died", &philo[i], philo[i].philo_id);
 			pthread_mutex_lock(philo->dead_lock);
-			*philo->die = 1;
+			*philo->done_or_die = 1;
 			pthread_mutex_unlock(philo->dead_lock);
 			return (1);
 		}
@@ -46,6 +48,12 @@ int	check_dead(t_philo *philo)
 	return (0);
 }
 
+/*
+*	1. check if assign number of meal for philo if not return 0
+*	2. finish_eating++ is to hold the number of philo that has finished eating
+*		a. if finish_eating = 1 it always count only 1 philo finish eating
+*	3. if finish_eating == philo->num_philo then all philo has finished eating
+*/
 int	check_done_eating(t_philo *philo)
 {
 	int	i;
@@ -53,7 +61,6 @@ int	check_done_eating(t_philo *philo)
 
 	i = -1;
 	finish_eating = 0;
-	//it means the philo is not eat
 	if (philo->num_for_philo_eat == -1)
 		return (0);
 	while (++i < philo->num_philo)
@@ -66,13 +73,14 @@ int	check_done_eating(t_philo *philo)
 	if (finish_eating == philo->num_philo)
 	{
 		pthread_mutex_lock(philo->dead_lock);
-		*philo->die = 1;
+		*philo->done_or_die = 1;
 		pthread_mutex_unlock(philo->dead_lock);
 		return (1);
 	}
 	return (0);
 }
 
+//check if philo is dead or done eating
 void	*check_philo_condition(void *arg)
 {
 	t_philo	*philo;

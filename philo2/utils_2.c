@@ -12,6 +12,7 @@
 
 #include "philo.h"
 
+//this function is to wait for the time given
 int	ft_usleep(int time)
 {
 	int	start;
@@ -22,17 +23,24 @@ int	ft_usleep(int time)
 	return (0);
 }
 
+//this function is to print the time, philo id and the string of each philo
+/*
+*	1. 200 is 200ms = 0.2s
+*	2. 0 is false
+*/
 void	philo_say(char *str, t_philo *philo, int id)
 {
 	int	time;
 
 	pthread_mutex_lock(philo->write_lock);
 	time = get_time() - philo->time_start_eat;
-	if (philo_done_die(philo) == 0) //0 is false
+	if (philo_done_die(philo) == 0)
 		printf("%d %d %s\n", time, id, str);
 	pthread_mutex_unlock(philo->write_lock);
 }
 
+//(time.tv_sec * 1000) + (time.tv_usec / 1000) convert microsec to millisec
+//sec->milisec->microsec
 int	get_time(void)
 {
 	struct timeval	time;
