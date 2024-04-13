@@ -91,7 +91,7 @@ void	init_philo(t_table *table, t_philo *philos, pthread_mutex_t *fork,
 
 	num_philo = ft_atol(av[1]);
 	i = -1;
-	while (++i <= num_philo)
+	while (++i < num_philo)
 	{
 		assign_value(&philos[i], av);
 		philos[i].philo_id = i + 1;
