@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: welow <welow@student.42.fr>                +#+  +:+       +#+        */
+/*   By: welow < welow@student.42kl.edu.my>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 15:07:18 by welow             #+#    #+#             */
-/*   Updated: 2024/04/12 15:36:58 by welow            ###   ########.fr       */
+/*   Updated: 2024/04/14 16:21:12 by welow            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ int	main(int ac, char **av)
 
 	if (ac < 5 || ac > 6)
 		error_output("wrong argument\n");
-	check_digit(av);
 	check_input(av);
 	num_philo = ft_atol(av[1]);
 	philos = malloc(sizeof(t_philo) * num_philo);
@@ -47,6 +46,7 @@ int	main(int ac, char **av)
 
 void	check_input(char **av)
 {
+	check_digit(av);
 	if (ft_atol(av[1]) > 200)
 		error_output("number of philo must be not more than 200\n");
 	if (ft_atol(av[2]) < 60 || ft_atol(av[3]) < 60

@@ -6,7 +6,7 @@
 /*   By: welow < welow@student.42kl.edu.my>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 11:20:21 by welow             #+#    #+#             */
-/*   Updated: 2024/04/14 14:52:49 by welow            ###   ########.fr       */
+/*   Updated: 2024/04/14 17:29:26 by welow            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,12 @@
 # include <sys/time.h>
 # include <limits.h>
 
-# define FAIL 0
-# define SUCCESS 1
+# define FLAG_OFF 0
+# define FLAG_ON 1
 # define RED "\033[0;31m"
 # define GREEN "\033[0;32m"
+# define RESET "\033[0m"
+# define EAT GREEN"is eating"RESET
 
 /*
 *	1. number of philo
@@ -84,22 +86,21 @@ typedef struct s_table
 }	t_table;
 
 //utils.c
-void	destroy_all_mutex(t_table *table, pthread_mutex_t *fork);
+void	destroy_all_mutex(t_table *table);
 void	error_output(const char *str);
-int		ft_atol(const char *str);
+long	ft_atol(const char *str);
 void	check_digit(char **av);
 
 //philo.c
 void	check_input(char **av);
-void	init_table(t_table *table, t_philo *philos);
-void	init_fork(pthread_mutex_t *fork, char **av);
-void	init_philo(t_table *table, t_philo *philos, pthread_mutex_t *fork,
-			char **av);
+void	init_table(t_table *table);
+void	init_fork(t_table *table, int num_philo);
+void	init_philo(t_table *table, int num_philo, char **av);
 
 //start_table.c
 int		philo_done_die(t_philo *philo);
 void	*philo_move(void *arg);
-void	start_table(t_table *table, pthread_mutex_t *fork);
+void	start_table(t_table *table);
 
 //utils_2.c
 int		ft_usleep(int time);
