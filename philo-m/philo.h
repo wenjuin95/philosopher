@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: welow < welow@student.42kl.edu.my>         +#+  +:+       +#+        */
+/*   By: welow <welow@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 11:20:21 by welow             #+#    #+#             */
-/*   Updated: 2024/04/14 17:29:26 by welow            ###   ########.fr       */
+/*   Updated: 2024/04/16 11:56:44 by welow            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ typedef struct s_philo
 	int				eating;
 	int				num_meal;
 	long			last_meal;
-	long			time_to_eat; 
+	long			time_to_eat;
 	long			time_to_sleep;
 	long			time_to_die;
 	long			time_start_eat;
@@ -77,6 +77,7 @@ typedef struct s_philo
 */
 typedef struct s_table
 {
+	int				num_philo;
 	int				done_or_die;
 	pthread_mutex_t	dead_lock;
 	pthread_mutex_t	write_lock;
@@ -93,9 +94,9 @@ void	check_digit(char **av);
 
 //philo.c
 void	check_input(char **av);
-void	init_table(t_table *table);
-void	init_fork(t_table *table, int num_philo);
-void	init_philo(t_table *table, int num_philo, char **av);
+void	init_table(t_table *table, char **av);
+void	init_fork(t_table *table);
+void	init_philo(t_table *table, char **av);
 
 //start_table.c
 int		philo_done_die(t_philo *philo);

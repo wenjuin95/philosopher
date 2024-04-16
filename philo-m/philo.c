@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: welow < welow@student.42kl.edu.my>         +#+  +:+       +#+        */
+/*   By: welow <welow@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 15:07:18 by welow             #+#    #+#             */
-/*   Updated: 2024/04/14 17:31:57 by welow            ###   ########.fr       */
+/*   Updated: 2024/04/16 12:00:36 by welow            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,15 @@ void	check_input(char **av)
 }
 
 //function is to initialize table mutex(locker)
-void	init_table(t_table *table)
+void	init_table(t_table *table, char **av)
 {
+	table->num_philo = ft_atol(av[1]);
+	table->philo = malloc(sizeof(t_philo) * table->num_philo);
+	if (table->philo == NULL)
+		error_output("malloc failed\n");
+	table->fork = malloc(sizeof(pthread_mutex_t) * table->num_philo);
+	if (table->fork == NULL)
+		error_output("malloc failed\n");
 	table->done_or_die = FLAG_OFF;
 	pthread_mutex_init(&table->dead_lock, NULL);
 	pthread_mutex_init(&table->write_lock, NULL);
@@ -41,13 +48,14 @@ void	init_table(t_table *table)
 *	else, right fork will be the previous philo fork
 *	3. each philo will have their own left fork and right fork
 */
-void	init_philo(t_table *table, int num_philo, char **av)
+void	init_philo(t_table *table, char **av)
 {
 	int	i;
 
 	i = -1;
-	while (++i < num_philo)
+	while (++i < table->num_philo)
 	{
+		table->philo[i].num_philo = table->num_philo;
 		assign_value(&table->philo[i], av);
 		table->philo[i].philo_id = i + 1;
 		table->philo[i].eating = FLAG_OFF;
@@ -60,41 +68,33 @@ void	init_philo(t_table *table, int num_philo, char **av)
 		table->philo[i].done_or_die = &table->done_or_die;
 		table->philo[i].left_fork = &table->fork[i];
 		if (i == 0)
-			table->philo[i].right_fork = &table->fork[table->philo[i].num_philo - 1];
+			table->philo[i].right_fork = &table->fork
+			[table->philo[i].num_philo - 1];
 		else
 			table->philo[i].right_fork = &table->fork[i - 1];
 	}
 }
 
 //function is to give each philo fork a mutex(locker)
-void	init_fork(t_table *table, int num_philo)
+void	init_fork(t_table *table)
 {
 	int	i;
 
 	i = -1;
-	while (++i < num_philo)
+	while (++i < table->num_philo)
 		pthread_mutex_init(&table->fork[i], NULL);
 }
 
 int	main(int ac, char **av)
 {
 	t_table			table;
-	int				num_philo;
 
 	if (ac < 5 || ac > 6)
 		error_output("wrong argument\n");
 	check_input(av);
-	num_philo = ft_atol(av[1]);
-	table.philo = malloc(sizeof(t_philo) * num_philo);
-	if (table.philo == NULL)
-		error_output("malloc failed\n");
-	table.fork = malloc(sizeof(pthread_mutex_t) * num_philo);
-	if (table.fork == NULL)
-		error_output("malloc failed\n");
-
-	init_table(&table);
-	init_philo(&table, num_philo, av);
-	init_fork(&table, num_philo);
+	init_table(&table, av);
+	init_philo(&table, av);
+	init_fork(&table);
 	start_table(&table);
 	destroy_all_mutex(&table);
 	free(table.philo);

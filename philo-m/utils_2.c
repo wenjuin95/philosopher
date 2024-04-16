@@ -51,7 +51,6 @@ int	get_time(void)
 
 void	assign_value(t_philo *philo, char **av)
 {
-	philo->num_philo = ft_atol(av[1]);
 	philo->time_to_die = ft_atol(av[2]);
 	philo->time_to_eat = ft_atol(av[3]);
 	philo->time_to_sleep = ft_atol(av[4]);
