@@ -12,8 +12,11 @@
 
 #include "philo.h"
 
-//(get_time() - philo->last_meal) is the time since philo last ate
-//philo->eating == 0 is the philo is not eating
+/*
+*	1. (get_time() - philo->last_meal) is the time since philo last ate
+*	note: SUCCESS mean not dead
+*	note: FAIL mean dead
+*/
 int	philo_die(t_philo *philo, int time_to_die)
 {
 	pthread_mutex_lock(philo->meal_lock);
@@ -21,14 +24,13 @@ int	philo_die(t_philo *philo, int time_to_die)
 		&& philo->eating == FLAG_OFF)
 	{
 		pthread_mutex_unlock(philo->meal_lock);
-		return (1);
+		return (SUCCESS);
 	}
 	pthread_mutex_unlock(philo->meal_lock);
-	return (0);
+	return (FAIL);
 }
 
 //check if philo is dead
-// 1 is true
 int	check_dead(t_philo *philo)
 {
 	int	i;
@@ -36,7 +38,7 @@ int	check_dead(t_philo *philo)
 	i = -1;
 	while (++i < philo->num_philo)
 	{
-		if (philo_die(&philo[i], philo[i].time_to_die) == 1)
+		if (philo_die(&philo[i], philo[i].time_to_die) == SUCCESS)
 		{
 			philo_say("died", &philo[i], philo[i].philo_id);
 			pthread_mutex_lock(philo->dead_lock);
@@ -49,10 +51,11 @@ int	check_dead(t_philo *philo)
 }
 
 /*
-*	1. check if assign number of meal for philo if not return 0
-*	2. finish_eating++ is to hold the number of philo that has finished eating
-*		a. if finish_eating = 1 it always count only 1 philo finish eating
-*	3. if finish_eating == philo->num_philo then all philo has finished eating
+*	1. finish_eating++ :: hold the number of philo that has finished eating
+*	(if finish_eating = 1 it always count only 1 philo finish eating)
+*	2. finish_eating == philo->num_philo :: all philo has finished eating
+*	note: SUCCESS mean done eating
+*	note: FAIL mean not done eating/no num for philo to eat
 */
 int	check_done_eating(t_philo *philo)
 {
@@ -61,12 +64,12 @@ int	check_done_eating(t_philo *philo)
 
 	i = -1;
 	finish_eating = 0;
-	if (philo->num_for_philo_eat == -1)
-		return (0);
+	if (philo->num_for_philo_eat == 0)
+		return (FAIL);
 	while (++i < philo->num_philo)
 	{
 		pthread_mutex_lock(philo->meal_lock);
-		if (philo[i].num_meal >= philo[i].num_for_philo_eat)
+		if (philo[i].num_meal == philo[i].num_for_philo_eat)
 			finish_eating++;
 		pthread_mutex_unlock(philo->meal_lock);
 	}
@@ -75,19 +78,20 @@ int	check_done_eating(t_philo *philo)
 		pthread_mutex_lock(philo->dead_lock);
 		*philo->done_or_die = FLAG_ON;
 		pthread_mutex_unlock(philo->dead_lock);
-		return (1);
+		return (SUCCESS);
 	}
-	return (0);
+	return (FAIL);
 }
 
 //check if philo is dead or done eating
+//note: SUCCESS is true
 void	*check_philo_condition(void *arg)
 {
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
 	while (1)
-		if (check_dead(philo) == 1 || check_done_eating(philo) == 1)
+		if (check_dead(philo) == SUCCESS || check_done_eating(philo) == SUCCESS)
 			break ;
 	return (NULL);
 }

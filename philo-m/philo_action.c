@@ -12,14 +12,7 @@
 
 #include "philo.h"
 
-void	philo_think(t_philo *philo)
-{
-	philo_say("is thinking", philo, philo->philo_id);
-}
-
-/*
-*	wait for the time to sleep given
-*/
+//	wait for the time to sleep given
 void	philo_sleep(t_philo *philo)
 {
 	philo_say("is sleeping", philo, philo->philo_id);
@@ -27,16 +20,16 @@ void	philo_sleep(t_philo *philo)
 }
 
 /*
-*	1. philo take the right fork
-*	2. check if only 1 philo, just sleep and return and unlock the right fork
-*	3. if not philo take the left fork
-*	4. philo start to eat and on flag eating (1 is on)
-*	5. lock the meal_lock 
-*		a.to get the last meal time and increment number of meal for each philo
-*	6. unlock the meal_lock
-* 	7. wait for next meal with time to eat given
-*	8. philo is not eating (0 is off)
-*	9. unlock the left and right fork
+*	1. philo take the right fork 
+*		check if only 1 philo then just put down right fork
+*	2. philo take the left fork
+*	3. philo start to eat and on flag on
+*		(for the condition to check if philo is eating)
+*	4. num_meal and the last_meal is for the condition
+*		a.num_meal :: get the total ofeach philo eat
+*		b.last_meal :: get the last meal time
+*	5. wait for the next time to eat
+*	6. turn off the flag to stop philo eating
 */
 void	philo_eat(t_philo *philo)
 {

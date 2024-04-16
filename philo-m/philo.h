@@ -6,7 +6,7 @@
 /*   By: welow <welow@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 11:20:21 by welow             #+#    #+#             */
-/*   Updated: 2024/04/16 11:56:44 by welow            ###   ########.fr       */
+/*   Updated: 2024/04/16 14:05:58 by welow            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,32 +20,15 @@
 # include <sys/time.h>
 # include <limits.h>
 
+# define FAIL 0
+# define SUCCESS 1
 # define FLAG_OFF 0
 # define FLAG_ON 1
 # define RED "\033[0;31m"
 # define GREEN "\033[0;32m"
 # define RESET "\033[0m"
-# define EAT GREEN"is eating"RESET
+# define EAT "\033[0;32mis eating\033[0m"
 
-/*
-*	1. number of philo
-*	2. each philo id
-*	3. eating flag
-*	4. number of meal
-*	5. last meal time
-*	6. time to eat
-*	7. time to sleep
-*	8. time to die
-*	9. time that start to eat
-*	10. number of meal that philo need to eat
-*	11. array of done or die
-*	12. thread of each philo
-*	13. array of left fork
-*	14. array of right fork
-*	15. array of write lock
-*	16. array of dead lock
-*	17. array of meal lock
-*/
 typedef struct s_philo
 {
 	int				num_philo;
@@ -67,14 +50,6 @@ typedef struct s_philo
 	pthread_mutex_t	*meal_lock;
 }	t_philo;
 
-/*
-*	1. done or die flag
-*	2. dead lock
-*	3. write lock
-*	4. meal lock
-*	5. array of fork (how many fork for each philo)
-*	6. array of philo
-*/
 typedef struct s_table
 {
 	int				num_philo;
@@ -116,7 +91,6 @@ int		check_dead(t_philo *philo);
 void	*check_philo_condition(void *arg);
 
 //philo_action.c
-void	philo_think(t_philo *philo);
 void	philo_sleep(t_philo *philo);
 void	philo_eat(t_philo *philo);
 

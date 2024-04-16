@@ -9,31 +9,31 @@ output=$(cat <<EOF
 200 2 has taken a fork
 200 2 has taken a fork
 200 2 is eating
-400 2 is sleeping
 400 1 is thinking
+400 2 is sleeping
 400 1 has taken a fork
 400 1 has taken a fork
 400 1 is eating
-600 2 is thinking
 600 1 is sleeping
+600 2 is thinking
 600 2 has taken a fork
 600 2 has taken a fork
 600 2 is eating
-800 2 is sleeping
 800 1 is thinking
+800 2 is sleeping
 800 1 has taken a fork
 800 1 has taken a fork
 800 1 is eating
 1000 2 is thinking
+1000 1 is sleeping
 1000 2 has taken a fork
 1000 2 has taken a fork
 1000 2 is eating
-1000 1 is sleeping
 EOF
 )
 
 #input number of philo
-read -p "Enter the number of philosophers: " num_philo
+num_philo=2
 
 # Initialize the counter
 eating=0

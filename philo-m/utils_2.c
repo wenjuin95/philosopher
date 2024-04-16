@@ -34,7 +34,7 @@ void	philo_say(char *str, t_philo *philo, int id)
 
 	pthread_mutex_lock(philo->write_lock);
 	time = get_time() - philo->time_start_eat;
-	if (philo_done_die(philo) == 0)
+	if (philo_done_die(philo) == FAIL)
 		printf("%d %d %s\n", time, id, str);
 	pthread_mutex_unlock(philo->write_lock);
 }
