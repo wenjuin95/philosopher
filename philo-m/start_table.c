@@ -27,9 +27,9 @@ int	philo_done_die(t_philo *philo)
 
 //function that check which philo start eating first
 /*
-*	1. even philo wait for 100ms before start
-*	2. check each philo is dead or done eating (0 is mean false)
-*	3. each philo start eating, sleep and think
+*	1. even philo wait for 1ms before start
+*	2. check each philo is dead or done eating (0 mean not yet)
+*		a. each philo start eating, sleep and think
 */
 
 void	*philo_move(void *arg)
@@ -38,22 +38,21 @@ void	*philo_move(void *arg)
 
 	philo = (t_philo *)arg;
 	if (philo->philo_id % 2 == 0)
-		ft_usleep(1);
+		ft_usleep(1); //TODO
 	while (philo_done_die(philo) == 0)
 	{
 		philo_eat(philo);
 		philo_sleep(philo);
-		philo_think(philo);
+		philo_say("is thinking", philo, philo->philo_id);
 	}
 	return (NULL);
 }
 
 /*
-*	1. first create a thread to check if philo is dead or done eating
-*	2. create a thread for each philo to eat, sleep and think
-*	3. join the check_philo thread
-*	4. join all philo thread
-*	in this 
+*	1. first thread is to check if philo is dead or done eating
+*	2. second thread(depend on num of philo) is to start eat, sleep and think
+*	note: pthread_create is to create a new thread
+*	note: pthreaad_join is to wait for the thread to finish
 */
 void	start_table(t_table *table)
 {

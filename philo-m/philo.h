@@ -6,7 +6,7 @@
 /*   By: welow <welow@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 11:20:21 by welow             #+#    #+#             */
-/*   Updated: 2024/04/16 11:56:44 by welow            ###   ########.fr       */
+/*   Updated: 2024/04/17 16:13:40 by welow            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # define RED "\033[0;31m"
 # define GREEN "\033[0;32m"
 # define RESET "\033[0m"
-# define EAT GREEN"is eating"RESET
+# define EAT "\033[0;32mis eating\033[0m"
 
 /*
 *	1. number of philo
