@@ -69,7 +69,7 @@ int	check_done_eating(t_philo *philo)
 	while (++i < philo->num_philo)
 	{
 		pthread_mutex_lock(philo->meal_lock);
-		if (philo[i].num_meal >= philo[i].num_for_philo_eat)
+		if (philo[i].num_meal == philo[i].num_for_philo_eat)
 			finish_eating++;
 		pthread_mutex_unlock(philo->meal_lock);
 	}
