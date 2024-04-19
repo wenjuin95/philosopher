@@ -13,6 +13,11 @@
 #include "philo.h"
 
 //this function is to wait for the time given
+/*
+*	1. 500microsec = 0.5ms
+*	2. purpose for 0.5ms is to make sure it have enough time for the other philo to 
+*	   check if it is dead or done eating
+*/
 int	ft_usleep(int time)
 {
 	int	start;

@@ -27,7 +27,9 @@ int	philo_done_die(t_philo *philo)
 
 //function that check which philo start eating first
 /*
-*	1. even philo wait for 1ms before start
+*	1. even philo wait for 3ms before start
+*		a. purpose of 10ms delay is to make sure it have enough time to 
+		   check if the other philo is dead or done eating
 *	2. check each philo is dead or done eating (0 mean not yet)
 *		a. each philo start eating, sleep and think
 */
@@ -38,7 +40,7 @@ void	*philo_move(void *arg)
 
 	philo = (t_philo *)arg;
 	if (philo->philo_id % 2 == 0)
-		ft_usleep(1); //TODO
+		ft_usleep(10);
 	while (philo_done_die(philo) == 0)
 	{
 		philo_eat(philo);
