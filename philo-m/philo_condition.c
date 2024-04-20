@@ -64,7 +64,7 @@ int	check_done_eating(t_philo *philo)
 
 	i = -1;
 	finish_eating = 0;
-	if (philo->num_for_philo_eat == -1)
+	if (philo->num_for_philo_eat == 0)
 		return (0);
 	while (++i < philo->num_philo)
 	{

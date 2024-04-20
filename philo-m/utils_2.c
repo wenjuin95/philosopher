@@ -15,8 +15,11 @@
 //this function is to wait for the time given
 /*
 *	1. 500microsec = 0.5ms
-*	2. purpose for 0.5ms is to make sure it have enough time for the other philo to 
-*	   check if it is dead or done eating
+*	2. purpose for 0.5ms is to make sure it have enough time for the 
+*	   other philo to check if it is dead or done eating
+*	note: usleep get precise timing in microsec
+*	note: ft_usleep get precise timing in millisec
+*   note: need ft_usleep because get_time() is in millisec
 */
 int	ft_usleep(int time)
 {
