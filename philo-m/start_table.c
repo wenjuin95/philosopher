@@ -52,7 +52,9 @@ void	*philo_move(void *arg)
 
 /*
 *	1. first thread is to check if philo is dead or done eating
+*		a. waiter that check if the philo is dead or done eating
 *	2. second thread(depend on num of philo) is to start eat, sleep and think
+*		b. each of the philo movement
 *	note: pthread_create is to create a new thread
 *	note: pthreaad_join is to wait for the thread to finish
 */
