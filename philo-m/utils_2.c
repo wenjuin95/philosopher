@@ -65,5 +65,5 @@ void	assign_value(t_philo *philo, char **av)
 	if (av[5] != NULL)
 		philo->num_for_philo_eat = ft_atol(av[5]);
 	else
-		philo->num_for_philo_eat = -1;
+		philo->num_for_philo_eat = 0;
 }
