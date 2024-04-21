@@ -6,7 +6,7 @@
 /*   By: welow < welow@student.42kl.edu.my>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 11:20:21 by welow             #+#    #+#             */
-/*   Updated: 2024/04/20 10:41:03 by welow            ###   ########.fr       */
+/*   Updated: 2024/04/21 16:43:16 by welow            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,12 +88,12 @@ typedef struct s_table
 
 //utils.c
 void	destroy_all_mutex(t_table *table);
-void	error_output(const char *str);
+// void	error_output(const char *str);
 long	ft_atol(const char *str);
-void	check_digit(char **av);
+int		check_digit(char **av);
 
 //philo.c
-void	check_input(char **av);
+int		check_input(char **av);
 void	init_table(t_table *table, char **av);
 void	init_fork(t_table *table);
 void	init_philo(t_table *table, char **av);

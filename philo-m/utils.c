@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: welow <welow@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: welow < welow@student.42kl.edu.my>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 13:11:03 by welow             #+#    #+#             */
-/*   Updated: 2024/04/16 11:56:24 by welow            ###   ########.fr       */
+/*   Updated: 2024/04/21 16:43:04 by welow            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,11 @@ void	destroy_all_mutex(t_table *table)
 }
 
 //for error output
-void	error_output(const char *str)
-{
-	printf("%s%s", RED, str);
-	exit(EXIT_FAILURE);
-}
+// void	error_output(const char *str)
+// {
+// 	printf("%s%s", RED, str);
+// 	exit(EXIT_FAILURE);
+// }
 
 //use atol to make sure not to overflow
 long	ft_atol(const char *str)
@@ -56,12 +56,10 @@ long	ft_atol(const char *str)
 		res = res * 10 + str[i] - '0';
 		i++;
 	}
-	if (res >= INT_MAX)
-		error_output("too big number\n");
 	return (sign * res);
 }
 
-void	check_digit(char **av)
+int	check_digit(char **av)
 {
 	int	i;
 	int	j;
@@ -73,9 +71,13 @@ void	check_digit(char **av)
 		while (av[i][j])
 		{
 			if (av[i][j] < '0' || av[i][j] > '9')
-				error_output("must be a number\n");
+			{
+				printf("%sMust be a number\n", RED);
+				return (1);
+			}
 			j++;
 		}
 		i++;
 	}
+	return (0);
 }

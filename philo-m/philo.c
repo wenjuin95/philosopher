@@ -6,23 +6,39 @@
 /*   By: welow < welow@student.42kl.edu.my>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 15:07:18 by welow             #+#    #+#             */
-/*   Updated: 2024/04/19 12:26:23 by welow            ###   ########.fr       */
+/*   Updated: 2024/04/21 16:44:40 by welow            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-
-void	check_input(char **av)
+int	check_input(char **av)
 {
 	check_digit(av);
+	if (ft_atol(av[1]) >= INT_MAX || ft_atol(av[2]) >= INT_MAX
+		|| ft_atol(av[3]) >= INT_MAX || ft_atol(av[4]) >= INT_MAX
+		|| (av[5] != NULL && ft_atol(av[5]) >= INT_MAX))
+	{
+		printf("%sNumber is too big\n", RED);
+		return (1);
+	}
 	if (ft_atol(av[1]) < 1 || ft_atol(av[1]) > 200)
-		error_output("number of philo must be 1 or not more than 200\n");
+	{
+		printf("%sNumber of philo must be 1 or not more than 200\n", RED);
+		return (1);
+	}
 	if (ft_atol(av[2]) < 60 || ft_atol(av[3]) < 60
 		|| ft_atol(av[4]) < 60)
-		error_output("time must be above 60ms\n");
+	{
+		printf("%sTime must be at least 60ms\n", RED);
+		return (1);
+	}
 	if (av[5] != NULL && ft_atol(av[5]) < 1)
-		error_output("number of meal must be above 1\n");
+	{
+		printf("%sNumber of meal must be at least 1\n", RED);
+		return (1);
+	}
+	return (0);
 }
 
 //function is to initialize table mutex(locker)
@@ -31,10 +47,10 @@ void	init_table(t_table *table, char **av)
 	table->num_philo = ft_atol(av[1]);
 	table->philo = malloc(sizeof(t_philo) * table->num_philo);
 	if (table->philo == NULL)
-		error_output("malloc failed\n");
+		return ;
 	table->fork = malloc(sizeof(pthread_mutex_t) * table->num_philo);
 	if (table->fork == NULL)
-		error_output("malloc failed\n");
+		return ;
 	table->done_or_die = FLAG_OFF;
 	pthread_mutex_init(&table->dead_lock, NULL);
 	pthread_mutex_init(&table->write_lock, NULL);
@@ -90,8 +106,12 @@ int	main(int ac, char **av)
 	t_table			table;
 
 	if (ac < 5 || ac > 6)
-		error_output("wrong argument\n");
-	check_input(av);
+	{
+		printf("%sInvalid number of arguments\n", RED);
+		return (1);
+	}
+	if (check_input(av) == 1)
+		return (1);
 	init_table(&table, av);
 	init_philo(&table, av);
 	init_fork(&table);
