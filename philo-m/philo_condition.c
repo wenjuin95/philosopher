@@ -83,7 +83,8 @@ int	check_done_eating(t_philo *philo)
 	return (0);
 }
 
-//check if philo is dead or done eating
+//check_dead: check is philo die
+//check_done_eating: is to check the number given to eat had done
 //note: 1 is true
 void	*check_philo_condition(void *arg)
 {
