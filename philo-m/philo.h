@@ -6,7 +6,7 @@
 /*   By: welow < welow@student.42kl.edu.my>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 11:20:21 by welow             #+#    #+#             */
-/*   Updated: 2024/04/21 16:43:16 by welow            ###   ########.fr       */
+/*   Updated: 2024/04/24 13:15:42 by welow            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 # include <sys/time.h>
 # include <limits.h>
 
+# define FALSE 0
+# define TRUE 1
 # define FLAG_OFF 0
 # define FLAG_ON 1
 # define RED "\033[0;31m"
@@ -64,7 +66,7 @@ typedef struct s_philo
 	pthread_mutex_t	*right_fork;
 	pthread_mutex_t	*write_lock;
 	pthread_mutex_t	*dead_lock;
-	pthread_mutex_t	*meal_lock;
+	pthread_mutex_t	*eat_lock;
 }	t_philo;
 
 /*
@@ -81,7 +83,7 @@ typedef struct s_table
 	int				done_or_die;
 	pthread_mutex_t	dead_lock;
 	pthread_mutex_t	write_lock;
-	pthread_mutex_t	meal_lock;
+	pthread_mutex_t	eat_lock;
 	pthread_mutex_t	*fork;
 	t_philo			*philo;
 }	t_table;
@@ -104,10 +106,10 @@ void	*philo_move(void *arg);
 void	start_table(t_table *table);
 
 //utils_2.c
-int		ft_usleep(int time);
+int		ft_usleep(long time);
 void	philo_say(char *str, t_philo *philo, int id);
-int		get_time(void);
-void	assign_value(t_philo *philo, char **av);
+long	get_time(void);
+void	assign_time(t_philo *philo, char **av);
 
 //philo_condition.c
 int		check_done_eating(t_philo *philo);

@@ -21,9 +21,9 @@
 *	note: ft_usleep get precise timing in millisec
 *   note: need ft_usleep because get_time() is in millisec
 */
-int	ft_usleep(int time)
+int	ft_usleep(long time)
 {
-	int	start;
+	long	start;
 
 	start = get_time();
 	while ((get_time() - start) < time)
@@ -42,14 +42,14 @@ void	philo_say(char *str, t_philo *philo, int id)
 
 	pthread_mutex_lock(philo->write_lock);
 	time = get_time() - philo->time_start_eat;
-	if (philo_done_die(philo) == 0)
+	if (philo_done_die(philo) == FALSE)
 		printf("%d %d %s\n", time, id, str);
 	pthread_mutex_unlock(philo->write_lock);
 }
 
 //(time.tv_sec * 1000) + (time.tv_usec / 1000) convert microsec to millisec
 //sec->milisec->microsec
-int	get_time(void)
+long	get_time(void)
 {
 	struct timeval	time;
 
@@ -57,7 +57,7 @@ int	get_time(void)
 	return ((time.tv_sec * 1000) + (time.tv_usec / 1000));
 }
 
-void	assign_value(t_philo *philo, char **av)
+void	assign_time(t_philo *philo, char **av)
 {
 	philo->time_to_die = ft_atol(av[2]);
 	philo->time_to_eat = ft_atol(av[3]);
@@ -65,5 +65,5 @@ void	assign_value(t_philo *philo, char **av)
 	if (av[5] != NULL)
 		philo->num_for_philo_eat = ft_atol(av[5]);
 	else
-		philo->num_for_philo_eat = 0;
+		philo->num_for_philo_eat = -1;
 }

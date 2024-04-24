@@ -45,10 +45,10 @@ void	philo_eat(t_philo *philo)
 	philo_say("has taken a fork", philo, philo->philo_id);
 	philo->eating = FLAG_ON;
 	philo_say(EAT, philo, philo->philo_id);
-	pthread_mutex_lock(philo->meal_lock);
+	pthread_mutex_lock(philo->eat_lock);
 	philo->last_meal = get_time();
 	philo->num_meal++;
-	pthread_mutex_unlock(philo->meal_lock);
+	pthread_mutex_unlock(philo->eat_lock);
 	ft_usleep(philo->time_to_eat);
 	philo->eating = FLAG_OFF;
 	pthread_mutex_unlock(philo->left_fork);

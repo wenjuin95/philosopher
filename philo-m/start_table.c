@@ -19,10 +19,10 @@ int	philo_done_die(t_philo *philo)
 	if (*philo->done_or_die == FLAG_ON)
 	{
 		pthread_mutex_unlock(philo->dead_lock);
-		return (1);
+		return (TRUE);
 	}
 	pthread_mutex_unlock(philo->dead_lock);
-	return (0);
+	return (FALSE);
 }
 
 //function that check which philo start eating first
@@ -41,7 +41,7 @@ void	*philo_move(void *arg)
 	philo = (t_philo *)arg;
 	if (philo->philo_id % 2 == 0)
 		ft_usleep(10);
-	while (philo_done_die(philo) == 0)
+	while (philo_done_die(philo) == FALSE)
 	{
 		philo_eat(philo);
 		philo_sleep(philo);

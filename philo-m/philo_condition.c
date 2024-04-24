@@ -19,15 +19,15 @@
 */
 int	philo_die(t_philo *philo, int time_to_die)
 {
-	pthread_mutex_lock(philo->meal_lock);
+	pthread_mutex_lock(philo->eat_lock);
 	if ((get_time() - philo->last_meal) >= time_to_die
 		&& philo->eating == FLAG_OFF)
 	{
-		pthread_mutex_unlock(philo->meal_lock);
-		return (1);
+		pthread_mutex_unlock(philo->eat_lock);
+		return (TRUE);
 	}
-	pthread_mutex_unlock(philo->meal_lock);
-	return (0);
+	pthread_mutex_unlock(philo->eat_lock);
+	return (FALSE);
 }
 
 //check if philo is dead
@@ -38,16 +38,16 @@ int	check_dead(t_philo *philo)
 	i = -1;
 	while (++i < philo->num_philo)
 	{
-		if (philo_die(&philo[i], philo[i].time_to_die) == 1)
+		if (philo_die(&philo[i], philo[i].time_to_die) == TRUE)
 		{
 			philo_say("died", &philo[i], philo[i].philo_id);
 			pthread_mutex_lock(philo->dead_lock);
 			*philo->done_or_die = FLAG_ON;
 			pthread_mutex_unlock(philo->dead_lock);
-			return (1);
+			return (TRUE);
 		}
 	}
-	return (0);
+	return (FALSE);
 }
 
 /*
@@ -64,23 +64,23 @@ int	check_done_eating(t_philo *philo)
 
 	i = -1;
 	finish_eating = 0;
-	if (philo->num_for_philo_eat == 0)
-		return (0);
+	if (philo->num_for_philo_eat == -1)
+		return (FALSE);
 	while (++i < philo->num_philo)
 	{
-		pthread_mutex_lock(philo->meal_lock);
+		pthread_mutex_lock(philo->eat_lock);
 		if (philo[i].num_meal >= philo[i].num_for_philo_eat)
 			finish_eating++;
-		pthread_mutex_unlock(philo->meal_lock);
+		pthread_mutex_unlock(philo->eat_lock);
 	}
 	if (finish_eating == philo->num_philo)
 	{
 		pthread_mutex_lock(philo->dead_lock);
 		*philo->done_or_die = FLAG_ON;
 		pthread_mutex_unlock(philo->dead_lock);
-		return (1);
+		return (TRUE);
 	}
-	return (0);
+	return (FALSE);
 }
 
 //check_dead: check is philo die
@@ -92,7 +92,7 @@ void	*check_philo_condition(void *arg)
 
 	philo = (t_philo *)arg;
 	while (1)
-		if (check_dead(philo) == 1 || check_done_eating(philo) == 1)
+		if (check_dead(philo) == TRUE || check_done_eating(philo) == TRUE)
 			break ;
 	return (NULL);
 }
