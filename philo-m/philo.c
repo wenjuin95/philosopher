@@ -6,7 +6,7 @@
 /*   By: welow < welow@student.42kl.edu.my>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 15:07:18 by welow             #+#    #+#             */
-/*   Updated: 2024/04/24 13:32:02 by welow            ###   ########.fr       */
+/*   Updated: 2024/04/28 22:29:53 by welow            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,9 @@ void	init_table(t_table *table, char **av)
 		return ;
 	table->done_or_die = FLAG_OFF;
 	pthread_mutex_init(&table->dead_lock, NULL);
-	pthread_mutex_init(&table->write_lock, NULL);
-	pthread_mutex_init(&table->eat_lock, NULL);
+	pthread_mutex_init(&table->philo_lock, NULL);
+	// pthread_mutex_init(&table->write_lock, NULL);
+	// pthread_mutex_init(&table->eat_lock, NULL);
 }
 
 //function is to assign al value to philo struct
@@ -78,9 +79,10 @@ void	init_philo(t_table *table, char **av)
 		table->philo[i].time_start_eat = get_time();
 		table->philo[i].last_meal = get_time();
 		assign_time(&table->philo[i], av);
-		table->philo[i].write_lock = &table->write_lock;
+		// table->philo[i].write_lock = &table->write_lock;
+		// table->philo[i].eat_lock = &table->eat_lock;
 		table->philo[i].dead_lock = &table->dead_lock;
-		table->philo[i].eat_lock = &table->eat_lock;
+		table->philo[i].philo_lock = &table->philo_lock;
 		table->philo[i].done_or_die = &table->done_or_die;
 		table->philo[i].left_fork = &table->fork[i];
 		if (i == 0)

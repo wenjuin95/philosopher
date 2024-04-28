@@ -31,22 +31,6 @@ int	ft_usleep(long time)
 	return (0);
 }
 
-//this function is to print the time, philo id and the string of each philo
-/*
-*	1. 200 is 200ms = 0.2s
-*	2. 0 is false
-*/
-void	philo_say(char *str, t_philo *philo, int id)
-{
-	int	time;
-
-	pthread_mutex_lock(philo->write_lock);
-	time = get_time() - philo->time_start_eat;
-	if (philo_done_die(philo) == FALSE)
-		printf("%d %d %s\n", time, id, str);
-	pthread_mutex_unlock(philo->write_lock);
-}
-
 //(time.tv_sec * 1000) + (time.tv_usec / 1000) convert microsec to millisec
 //sec->milisec->microsec
 long	get_time(void)
@@ -56,6 +40,25 @@ long	get_time(void)
 	gettimeofday(&time, NULL);
 	return ((time.tv_sec * 1000) + (time.tv_usec / 1000));
 }
+
+//this function is to print the time, philo id and the string of each philo
+/*
+*	1. 200 is 200ms = 0.2s
+*	2. 0 is false
+*/
+void	philo_say(char *str, t_philo *philo, int id)
+{
+	int	time;
+
+	// pthread_mutex_lock(philo->write_lock);
+	pthread_mutex_lock(philo->philo_lock);
+	time = get_time() - philo->time_start_eat;
+	if (philo_done_die(philo) == FALSE)
+		printf("%d %d %s\n", time, id, str);
+	// pthread_mutex_unlock(philo->write_lock);
+	pthread_mutex_unlock(philo->philo_lock);
+}
+
 
 void	assign_time(t_philo *philo, char **av)
 {

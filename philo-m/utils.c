@@ -6,7 +6,7 @@
 /*   By: welow < welow@student.42kl.edu.my>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 13:11:03 by welow             #+#    #+#             */
-/*   Updated: 2024/04/24 13:08:07 by welow            ###   ########.fr       */
+/*   Updated: 2024/04/28 22:33:40 by welow            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,10 @@ void	destroy_all_mutex(t_table *table)
 	int	i;
 
 	i = -1;
+	// pthread_mutex_destroy(&table->write_lock);
+	// pthread_mutex_destroy(&table->eat_lock);
 	pthread_mutex_destroy(&table->dead_lock);
-	pthread_mutex_destroy(&table->write_lock);
-	pthread_mutex_destroy(&table->eat_lock);
+	pthread_mutex_destroy(&table->philo_lock);
 	while (++i < table->philo->num_philo)
 		pthread_mutex_destroy(&table->fork[i]);
 }

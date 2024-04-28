@@ -19,14 +19,17 @@
 */
 int	philo_die(t_philo *philo, int time_to_die)
 {
-	pthread_mutex_lock(philo->eat_lock);
+	// pthread_mutex_lock(philo->eat_lock);
+	pthread_mutex_lock(philo->philo_lock);
 	if ((get_time() - philo->last_meal) >= time_to_die
 		&& philo->eating == FLAG_OFF)
 	{
-		pthread_mutex_unlock(philo->eat_lock);
+		// pthread_mutex_unlock(philo->eat_lock);
+		pthread_mutex_unlock(philo->philo_lock);
 		return (TRUE);
 	}
-	pthread_mutex_unlock(philo->eat_lock);
+	// pthread_mutex_unlock(philo->eat_lock);
+	pthread_mutex_unlock(philo->philo_lock);
 	return (FALSE);
 }
 
@@ -68,10 +71,12 @@ int	check_done_eating(t_philo *philo)
 		return (FALSE);
 	while (++i < philo->num_philo)
 	{
-		pthread_mutex_lock(philo->eat_lock);
+		// pthread_mutex_lock(philo->eat_lock);
+		pthread_mutex_lock(philo->philo_lock);
 		if (philo[i].num_meal >= philo[i].num_for_philo_eat)
 			finish_eating++;
-		pthread_mutex_unlock(philo->eat_lock);
+		// pthread_mutex_unlock(philo->eat_lock);
+		pthread_mutex_unlock(philo->philo_lock);
 	}
 	if (finish_eating == philo->num_philo)
 	{

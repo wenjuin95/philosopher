@@ -6,7 +6,7 @@
 /*   By: welow < welow@student.42kl.edu.my>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 11:20:21 by welow             #+#    #+#             */
-/*   Updated: 2024/04/24 13:15:42 by welow            ###   ########.fr       */
+/*   Updated: 2024/04/28 22:29:05 by welow            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,10 @@ typedef struct s_philo
 	pthread_t		thread;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
-	pthread_mutex_t	*write_lock;
+	// pthread_mutex_t	*write_lock;
+	// pthread_mutex_t	*eat_lock;
 	pthread_mutex_t	*dead_lock;
-	pthread_mutex_t	*eat_lock;
+	pthread_mutex_t	*philo_lock;
 }	t_philo;
 
 /*
@@ -81,9 +82,10 @@ typedef struct s_table
 {
 	int				num_philo;
 	int				done_or_die;
+	// pthread_mutex_t	write_lock;
+	// pthread_mutex_t	eat_lock;
 	pthread_mutex_t	dead_lock;
-	pthread_mutex_t	write_lock;
-	pthread_mutex_t	eat_lock;
+	pthread_mutex_t philo_lock;
 	pthread_mutex_t	*fork;
 	t_philo			*philo;
 }	t_table;
