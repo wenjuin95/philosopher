@@ -6,33 +6,11 @@
 /*   By: welow <welow@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 15:07:18 by welow             #+#    #+#             */
-/*   Updated: 2024/04/30 16:05:42 by welow            ###   ########.fr       */
+/*   Updated: 2024/04/30 19:12:07 by welow            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-void print_info(t_table *table)
-{
-	int i = -1;
-	while (++i < table->num_philo)
-	{
-		printf("id: %d\n", table->philo[i].philo_id);
-		if (table->philo[i].eating == 0)
-			printf("eating: flag off\n");
-		if (table->done_or_die == 0)
-			printf("done_or_die: flag off\n");
-		printf("num_meal: %d\n", table->philo[i].num_meal);
-		printf("time_start_eat: %ld\n", table->philo[i].time_start_eat);
-		printf("last_meal: %ld\n", table->philo[i].last_meal);
-		printf("time_to_die: %ld\n", table->philo[i].time_to_die);
-		printf("time_to_eat: %ld\n", table->philo[i].time_to_eat);
-		printf("time_to_sleep: %ld\n", table->philo[i].time_to_sleep);
-		printf("num_for_philo_eat: %d\n", table->philo[i].num_for_philo_eat);
-		printf("num_philo: %d\n", table->philo[i].num_philo);
-		printf("\n");
-	}
-}
 
 int	check_input(char **av)
 {
@@ -135,7 +113,6 @@ int	main(int ac, char **av)
 	init_table(&table, av);
 	init_philo(&table, av);
 	init_fork(&table);
-	print_info(&table);
 	start_table(&table);
 	destroy_all_mutex(&table);
 	free(table.philo);

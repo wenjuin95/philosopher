@@ -63,3 +63,9 @@ int main(int ac, char **av)
 // 		printf("\n");
 // 	}
 // }
+
+// printf("===========================\n");
+// printf("\nid            : %d\n", id);
+// printf("time          : %ld\n", get_time());
+// printf("start_eat_time: %ld\n", philo->time_start_eat);
+// printf("===========================\n");

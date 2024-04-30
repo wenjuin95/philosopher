@@ -49,15 +49,11 @@ long	get_time(void)
 void	philo_say(char *str, t_philo *philo, int id)
 {
 	int	time;
+	
 	pthread_mutex_lock(philo->do_lock);
 	time = get_time() - philo->time_start_eat;
 	if (philo_done_die(philo) == FALSE)
 	{
-		printf("===========================\n");
-		printf("\nid            : %d\n", id);
-		printf("time          : %ld\n", get_time());
-		printf("start_eat_time: %ld\n", philo->time_start_eat);
-		printf("===========================\n");
 		printf("%d %d %s\n", time, id, str);
 	}
 	pthread_mutex_unlock(philo->do_lock);
