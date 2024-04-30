@@ -3,14 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: welow < welow@student.42kl.edu.my>         +#+  +:+       +#+        */
+/*   By: welow <welow@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 15:07:18 by welow             #+#    #+#             */
-/*   Updated: 2024/04/28 22:29:53 by welow            ###   ########.fr       */
+/*   Updated: 2024/04/30 16:05:42 by welow            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+void print_info(t_table *table)
+{
+	int i = -1;
+	while (++i < table->num_philo)
+	{
+		printf("id: %d\n", table->philo[i].philo_id);
+		if (table->philo[i].eating == 0)
+			printf("eating: flag off\n");
+		if (table->done_or_die == 0)
+			printf("done_or_die: flag off\n");
+		printf("num_meal: %d\n", table->philo[i].num_meal);
+		printf("time_start_eat: %ld\n", table->philo[i].time_start_eat);
+		printf("last_meal: %ld\n", table->philo[i].last_meal);
+		printf("time_to_die: %ld\n", table->philo[i].time_to_die);
+		printf("time_to_eat: %ld\n", table->philo[i].time_to_eat);
+		printf("time_to_sleep: %ld\n", table->philo[i].time_to_sleep);
+		printf("num_for_philo_eat: %d\n", table->philo[i].num_for_philo_eat);
+		printf("num_philo: %d\n", table->philo[i].num_philo);
+		printf("\n");
+	}
+}
 
 int	check_input(char **av)
 {
@@ -53,9 +75,7 @@ void	init_table(t_table *table, char **av)
 		return ;
 	table->done_or_die = FLAG_OFF;
 	pthread_mutex_init(&table->dead_lock, NULL);
-	pthread_mutex_init(&table->philo_lock, NULL);
-	// pthread_mutex_init(&table->write_lock, NULL);
-	// pthread_mutex_init(&table->eat_lock, NULL);
+	pthread_mutex_init(&table->do_lock, NULL);
 }
 
 //function is to assign al value to philo struct
@@ -79,10 +99,8 @@ void	init_philo(t_table *table, char **av)
 		table->philo[i].time_start_eat = get_time();
 		table->philo[i].last_meal = get_time();
 		assign_time(&table->philo[i], av);
-		// table->philo[i].write_lock = &table->write_lock;
-		// table->philo[i].eat_lock = &table->eat_lock;
 		table->philo[i].dead_lock = &table->dead_lock;
-		table->philo[i].philo_lock = &table->philo_lock;
+		table->philo[i].do_lock = &table->do_lock;
 		table->philo[i].done_or_die = &table->done_or_die;
 		table->philo[i].left_fork = &table->fork[i];
 		if (i == 0)
@@ -117,6 +135,7 @@ int	main(int ac, char **av)
 	init_table(&table, av);
 	init_philo(&table, av);
 	init_fork(&table);
+	print_info(&table);
 	start_table(&table);
 	destroy_all_mutex(&table);
 	free(table.philo);

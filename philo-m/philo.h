@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: welow < welow@student.42kl.edu.my>         +#+  +:+       +#+        */
+/*   By: welow <welow@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 11:20:21 by welow             #+#    #+#             */
-/*   Updated: 2024/04/28 22:29:05 by welow            ###   ########.fr       */
+/*   Updated: 2024/04/30 15:44:22 by welow            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,8 @@
 *	12. thread of each philo
 *	13. array of left fork
 *	14. array of right fork
-*	15. array of write lock
 *	16. array of dead lock
-*	17. array of meal lock
+*	15. array of do lock
 */
 typedef struct s_philo
 {
@@ -64,17 +63,14 @@ typedef struct s_philo
 	pthread_t		thread;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
-	// pthread_mutex_t	*write_lock;
-	// pthread_mutex_t	*eat_lock;
 	pthread_mutex_t	*dead_lock;
-	pthread_mutex_t	*philo_lock;
+	pthread_mutex_t	*do_lock;
 }	t_philo;
 
 /*
 *	1. done or die flag
 *	2. dead lock
-*	3. write lock
-*	4. meal lock
+*	3. do lock
 *	5. array of fork (how many fork for each philo)
 *	6. array of philo
 */
@@ -82,17 +78,14 @@ typedef struct s_table
 {
 	int				num_philo;
 	int				done_or_die;
-	// pthread_mutex_t	write_lock;
-	// pthread_mutex_t	eat_lock;
 	pthread_mutex_t	dead_lock;
-	pthread_mutex_t philo_lock;
+	pthread_mutex_t	do_lock;
 	pthread_mutex_t	*fork;
 	t_philo			*philo;
 }	t_table;
 
 //utils.c
 void	destroy_all_mutex(t_table *table);
-// void	error_output(const char *str);
 long	ft_atol(const char *str);
 int		check_digit(char **av);
 

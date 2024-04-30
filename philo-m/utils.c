@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: welow < welow@student.42kl.edu.my>         +#+  +:+       +#+        */
+/*   By: welow <welow@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 13:11:03 by welow             #+#    #+#             */
-/*   Updated: 2024/04/28 22:33:40 by welow            ###   ########.fr       */
+/*   Updated: 2024/04/30 15:44:32 by welow            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,11 @@ void	destroy_all_mutex(t_table *table)
 	int	i;
 
 	i = -1;
-	// pthread_mutex_destroy(&table->write_lock);
-	// pthread_mutex_destroy(&table->eat_lock);
 	pthread_mutex_destroy(&table->dead_lock);
-	pthread_mutex_destroy(&table->philo_lock);
+	pthread_mutex_destroy(&table->do_lock);
 	while (++i < table->philo->num_philo)
 		pthread_mutex_destroy(&table->fork[i]);
 }
-
-//for error output
-// void	error_output(const char *str)
-// {
-// 	printf("%s%s", RED, str);
-// 	exit(EXIT_FAILURE);
-// }
 
 //use atol to make sure not to overflow
 long	ft_atol(const char *str)

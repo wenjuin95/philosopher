@@ -16,6 +16,7 @@ if [[ $# -eq 5 || $# -eq 6 ]]; then
 		if [ $? -eq 0 ]; then
 			echo -e "\033[0;32mno leak\033[0m"
 		else
+			ehco -e "\n"
 			leaks -atExit -- "$@"
 		fi
 	elif [ "$(uname)" = "Linux" ]; then
@@ -23,6 +24,7 @@ if [[ $# -eq 5 || $# -eq 6 ]]; then
 		if valgrind "$@" 2>&1 | grep -q "All heap blocks were freed -- no leaks are possible"; then
 			echo -e "\033[0;32mno leak\033[0m"
 		else
+			echo -e "\n"
 			valgrind "$@"
 		fi
 	fi
