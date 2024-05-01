@@ -90,7 +90,7 @@ void	*check_philo_condition(void *arg)
 {
 	t_philo	*philo;
 
-	philo = (t_philo *)arg;
+	philo = arg;
 	while (1)
 		if (check_dead(philo) == TRUE || check_done_eating(philo) == TRUE)
 			break ;

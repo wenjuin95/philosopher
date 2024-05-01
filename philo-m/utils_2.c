@@ -33,6 +33,11 @@ int	ft_usleep(long time)
 
 //(time.tv_sec * 1000) + (time.tv_usec / 1000) convert microsec to millisec
 //sec->milisec->microsec
+/*
+*	struct timeval is a struct that contains two members
+*	1. tv_sec is the number of seconds
+*	2. tv_usec is the number of microseconds
+*/
 long	get_time(void)
 {
 	struct timeval	time;

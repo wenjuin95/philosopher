@@ -38,7 +38,7 @@ void	*philo_move(void *arg)
 {
 	t_philo	*philo;
 
-	philo = (t_philo *)arg;
+	philo = arg;
 	if (philo->philo_id % 2 == 0)
 		ft_usleep(10);
 	while (philo_done_die(philo) == FALSE)

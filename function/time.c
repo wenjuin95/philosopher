@@ -1,6 +1,13 @@
 #include <stdio.h>
 #include <sys/time.h> // Include sys/time.h for gettimeofday()
 
+/*
+*	struct timeval :: a struct that contains two members
+*	1. tv_sec is the number of seconds
+*	2. tv_usec is the number of microseconds
+*	&time :: the address of the struct timeval time
+
+*/
 int main() {
     struct timeval time;
 
