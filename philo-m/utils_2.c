@@ -29,6 +29,19 @@ int	ft_usleep(long time)
 	while ((get_time() - start) < time)
 		usleep(500);
 	return (0);
+	// long start;
+	// long elapsed;
+	// long rem;
+
+	// start = get_time();
+	// while (get_time() - start < time)
+	// {
+	// 	elapsed = get_time() - start;
+	// 	rem = time - elapsed;
+	// 	if (rem > 1000)
+	// 		usleep(rem / 2);
+	// }
+	// return (0);
 }
 
 //(time.tv_sec * 1000) + (time.tv_usec / 1000) convert microsec to millisec
