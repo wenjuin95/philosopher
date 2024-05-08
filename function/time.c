@@ -30,3 +30,28 @@ int main() {
 
     return 0;
 }
+
+//show how the ft_usleep function works
+// long get_time(void)
+// {
+// 	struct timeval time;
+// 	long milisec;
+
+// 	gettimeofday(&time, NULL);
+// 	milisec = time.tv_sec * 1000 + time.tv_usec / 1000;
+// 	return milisec;
+// }
+
+// int main()
+// {
+//     long start_time = get_time();
+//     long time_diff;
+//     while (1)
+//     {
+//         time_diff = get_time() - start_time;
+//         printf("%ld - %ld = %ld\n", get_time(), start_time, time_diff);
+//         usleep(200 * 999);
+//         if (time_diff > 1000)
+//             break;
+//     }
+// }
