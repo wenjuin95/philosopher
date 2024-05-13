@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: welow <welow@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: welow < welow@student.42kl.edu.my>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 13:11:03 by welow             #+#    #+#             */
-/*   Updated: 2024/04/30 15:44:32 by welow            ###   ########.fr       */
+/*   Updated: 2024/05/13 13:43:53 by welow            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+//this function is to delete all the mutex
 void	destroy_all_mutex(t_table *table)
 {
 	int	i;
@@ -51,6 +52,7 @@ long	ft_atol(const char *str)
 	return (sign * res);
 }
 
+//check the input only have number
 int	check_digit(char **av)
 {
 	int	i;

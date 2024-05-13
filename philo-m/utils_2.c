@@ -26,7 +26,7 @@ int	ft_usleep(long time)
 	long	start;
 
 	start = get_time();
-	while ((get_time() - start) <= time)
+	while ((get_time() - start) < time)
 		usleep(500);
 	return (0);
 }
@@ -47,14 +47,10 @@ long	get_time(void)
 }
 
 //this function is to print the time, philo id and the string of each philo
-/*
-*	1. 200 is 200ms = 0.2s
-*	2. 0 is false
-*/
 void	philo_say(char *str, t_philo *philo, int id)
 {
 	int	time;
-	
+
 	pthread_mutex_lock(philo->do_lock);
 	time = get_time() - philo->time_start_eat;
 	if (philo_done_die(philo) == FALSE)
@@ -64,6 +60,7 @@ void	philo_say(char *str, t_philo *philo, int id)
 	pthread_mutex_unlock(philo->do_lock);
 }
 
+//assign the time and the number of philo eat to philo struct
 void	assign_time(t_philo *philo, char **av)
 {
 	philo->time_to_die = ft_atol(av[2]);

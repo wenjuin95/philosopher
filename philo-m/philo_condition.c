@@ -12,10 +12,9 @@
 
 #include "philo.h"
 
+//function to check if philo is dead for "check_dead"
 /*
 *	1. (get_time() - philo->last_meal) is the time since philo last ate
-*	note: 0 mean not dead
-*	note: 1 mean dead
 */
 int	philo_die(t_philo *philo, int time_to_die)
 {
@@ -54,8 +53,6 @@ int	check_dead(t_philo *philo)
 *	1. finish_eating++ :: hold the number of philo that has finished eating
 *	(if finish_eating = 1 it always count only 1 philo finish eating)
 *	2. finish_eating == philo->num_philo :: all philo has finished eating
-*	note: 1 mean done eating
-*	note: 0 mean not done eating/no num for philo to eat
 */
 int	check_done_eating(t_philo *philo)
 {
@@ -83,9 +80,11 @@ int	check_done_eating(t_philo *philo)
 	return (FALSE);
 }
 
-//check_dead: check is philo die
-//check_done_eating: is to check the number given to eat had done
-//note: 1 is true
+/*
+*	note:
+*	1. check_dead: check is philo die
+*	2. check_done_eating: check the number given to eat had done
+*/
 void	*check_philo_condition(void *arg)
 {
 	t_philo	*philo;

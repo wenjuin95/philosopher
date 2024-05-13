@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: welow <welow@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: welow < welow@student.42kl.edu.my>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 15:07:18 by welow             #+#    #+#             */
-/*   Updated: 2024/04/30 19:12:07 by welow            ###   ########.fr       */
+/*   Updated: 2024/05/13 13:36:51 by welow            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,8 +111,8 @@ int	main(int ac, char **av)
 	if (check_input(av) == 1)
 		return (1);
 	init_table(&table, av);
-	init_philo(&table, av);
 	init_fork(&table);
+	init_philo(&table, av);
 	start_table(&table);
 	destroy_all_mutex(&table);
 	free(table.philo);

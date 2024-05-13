@@ -6,7 +6,7 @@
 /*   By: welow < welow@student.42kl.edu.my>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 11:20:21 by welow             #+#    #+#             */
-/*   Updated: 2024/05/01 16:32:16 by welow            ###   ########.fr       */
+/*   Updated: 2024/05/13 13:44:43 by welow            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,8 @@ typedef struct s_philo
 *	1. done or die flag
 *	2. dead lock
 *	3. do lock
-*	5. array of fork (how many fork for each philo)
-*	6. array of philo
+*	5. array of fork (number of fork)
+*	6. array of philo (number of philo)
 */
 typedef struct s_table
 {

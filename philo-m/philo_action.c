@@ -28,19 +28,18 @@ void	philo_sleep(t_philo *philo)
 *	4. num_meal and the last_meal is for the condition
 *		a.num_meal :: get the total ofeach philo eat
 *		b.last_meal :: get the last meal time
-*	5. wait for the next time to eat
-*	6. turn off the flag to stop philo eating
+*	5. ft_usleep(philo->time_to_eat) :: wait for the next time to eat
+*	6. turn off the flag means philo is not eating
 */
 void	philo_eat(t_philo *philo)
 {
-	pthread_mutex_lock(philo->right_fork);
-	philo_say("has taken a fork", philo, philo->philo_id);
 	if (philo->num_philo == 1)
 	{
 		ft_usleep(philo->time_to_die);
-		pthread_mutex_unlock(philo->right_fork);
 		return ;
 	}
+	pthread_mutex_lock(philo->right_fork);
+	philo_say("has taken a fork", philo, philo->philo_id);
 	pthread_mutex_lock(philo->left_fork);
 	philo_say("has taken a fork", philo, philo->philo_id);
 	philo->eating = FLAG_ON;
