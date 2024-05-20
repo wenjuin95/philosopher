@@ -8,8 +8,8 @@
 
 void mult_function(void);
 void sum_function(void);
-void thread(void);
-void thread2(void);
+void *thread(void);
+void *thread2(void);
 
 /*  visualize thread
 *	sum                        mult
@@ -29,10 +29,17 @@ void thread2(void);
 /*=========================================================*/
 int main() //thread
 {
-	pthread_t t1, t2;
-	pthread_create(&t1, NULL, (void *)thread, NULL);
+	pthread_t t1;
+	pthread_t t2;
+
+	//create thread
+	//       thread id, attribute, function, argument
+	pthread_create(&t1, NULL, (void *)thread, NULL); 
 	pthread_create(&t2, NULL, (void *)thread2, NULL);
-	pthread_join(t1, NULL);
+
+	//wait for thread to finish. 
+	//if you don't put this, the program will end before the thread finish
+	pthread_join(t1, NULL); 
 	pthread_join(t2, NULL);
 
 	return 0;
@@ -63,7 +70,7 @@ int main() //thread
 
 ////////////////////////////////////////////////////////////////////////
 
-void thread(void)
+void *thread(void)
 {
 	int i = 1;
 	int j = 2;
@@ -71,9 +78,10 @@ void thread(void)
 	printf("%sload sum...%s\n", BLUE, RESET);
 	sleep(1);
 	printf("%ssum: %d%s\n", BLUE, sum, RESET);
+	return NULL;
 }
 
-void thread2(void)
+void *thread2(void)
 {
 	int a = 2;
 	int b = 2;
@@ -81,6 +89,7 @@ void thread2(void)
 	printf("%sload mult...%s\n", GREEN, RESET);
 	sleep(1);
 	printf("%smult: %d%s\n", GREEN, mult, RESET);
+	return NULL;
 }
 
 void sum_function(void)
