@@ -37,7 +37,7 @@ int	philo_done_die(t_philo *philo)
 		   check if the other philo is dead or done eating
 */
 
-void	*philo_move(void *arg)
+void	philo_move(void *arg)
 {
 	t_philo	*philo;
 
@@ -50,7 +50,6 @@ void	*philo_move(void *arg)
 		philo_sleep(philo);
 		philo_say("is thinking", philo, philo->philo_id);
 	}
-	return (NULL);
 }
 
 /*
@@ -64,13 +63,13 @@ void	start_table(t_table *table)
 	int			i;
 	pthread_t	check_philo;
 
-	if (pthread_create(&check_philo, NULL, &check_philo_condition,
+	if (pthread_create(&check_philo, NULL, (void *)check_philo_condition,
 			table->philo) != 0)
 		destroy_all_mutex(table);
 	i = -1;
 	while (++i < table->philo->num_philo)
 	{
-		if (pthread_create(&table->philo[i].thread, NULL, &philo_move,
+		if (pthread_create(&table->philo[i].thread, NULL, (void *)philo_move,
 				&table->philo[i]) != 0)
 			destroy_all_mutex(table);
 	}

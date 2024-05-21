@@ -85,7 +85,7 @@ int	check_done_eating(t_philo *philo)
 *	1. check_dead: check is philo die
 *	2. check_done_eating: check the number given to eat had done
 */
-void	*check_philo_condition(void *arg)
+void	check_philo_condition(void *arg)
 {
 	t_philo	*philo;
 
@@ -93,5 +93,4 @@ void	*check_philo_condition(void *arg)
 	while (1)
 		if (check_dead(philo) == TRUE || check_done_eating(philo) == TRUE)
 			break ;
-	return (NULL);
 }

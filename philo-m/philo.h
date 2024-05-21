@@ -6,7 +6,7 @@
 /*   By: welow <welow@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 11:20:21 by welow             #+#    #+#             */
-/*   Updated: 2024/05/21 11:00:00 by welow            ###   ########.fr       */
+/*   Updated: 2024/05/21 11:18:33 by welow            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,14 @@
 *	6. time to eat
 *	7. time to sleep
 *	8. time to die
-*	9. time that start to eat
+*	9. tstart to eat time
 *	10. number of meal that philo need to eat
-*	11. array of done or die
+*	11. pointer for done or die
 *	12. thread of each philo
-*	13. array of left fork
-*	14. array of right fork
-*	16. array of dead lock
-*	15. array of do lock
+*	13. pointer for left fork
+*	14. pointer for right fork
+*	16. pointer for dead lock
+*	15. pointer for do lock
 */
 typedef struct s_philo
 {
@@ -71,8 +71,8 @@ typedef struct s_philo
 *	1. done or die flag
 *	2. dead lock
 *	3. do lock
-*	5. array of fork (number of fork)
-*	6. array of philo (number of philo)
+*	5. pointer for each fork
+*	6. pointer for each philo
 */
 typedef struct s_table
 {
@@ -97,7 +97,7 @@ void	init_philo(t_table *table, char **av);
 
 //start_table.c
 int		philo_done_die(t_philo *philo);
-void	*philo_move(void *arg);
+void	philo_move(void *arg);
 void	start_table(t_table *table);
 
 //utils_2.c
@@ -110,7 +110,7 @@ void	assign_time(t_philo *philo, char **av);
 int		check_done_eating(t_philo *philo);
 int		philo_die(t_philo *philo, int time_to_die);
 int		check_dead(t_philo *philo);
-void	*check_philo_condition(void *arg);
+void	check_philo_condition(void *arg);
 
 //philo_action.c
 void	philo_think(t_philo *philo);
