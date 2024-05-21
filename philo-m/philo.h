@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: welow < welow@student.42kl.edu.my>         +#+  +:+       +#+        */
+/*   By: welow <welow@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 11:20:21 by welow             #+#    #+#             */
-/*   Updated: 2024/05/13 13:44:43 by welow            ###   ########.fr       */
+/*   Updated: 2024/05/21 11:00:00 by welow            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,9 +101,9 @@ void	*philo_move(void *arg);
 void	start_table(t_table *table);
 
 //utils_2.c
-int		ft_usleep(long time);
+int		usleep_ms(long time);
 void	philo_say(char *str, t_philo *philo, int id);
-long	get_time(void);
+long	get_time_ms(void);
 void	assign_time(t_philo *philo, char **av);
 
 //philo_condition.c

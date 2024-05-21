@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: welow < welow@student.42kl.edu.my>         +#+  +:+       +#+        */
+/*   By: welow <welow@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 15:07:18 by welow             #+#    #+#             */
-/*   Updated: 2024/05/13 13:36:51 by welow            ###   ########.fr       */
+/*   Updated: 2024/05/21 10:58:55 by welow            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,8 @@ void	init_philo(t_table *table, char **av)
 		table->philo[i].philo_id = i + 1;
 		table->philo[i].eating = FLAG_OFF;
 		table->philo[i].num_meal = 0;
-		table->philo[i].time_start_eat = get_time();
-		table->philo[i].last_meal = get_time();
+		table->philo[i].time_start_eat = get_time_ms();
+		table->philo[i].last_meal = get_time_ms();
 		assign_time(&table->philo[i], av);
 		table->philo[i].dead_lock = &table->dead_lock;
 		table->philo[i].do_lock = &table->do_lock;

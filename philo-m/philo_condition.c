@@ -19,7 +19,7 @@
 int	philo_die(t_philo *philo, int time_to_die)
 {
 	pthread_mutex_lock(philo->do_lock);
-	if ((get_time() - philo->last_meal) >= time_to_die
+	if ((get_time_ms() - philo->last_meal) >= time_to_die
 		&& philo->eating == FLAG_OFF)
 	{
 		pthread_mutex_unlock(philo->do_lock);

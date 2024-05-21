@@ -21,12 +21,12 @@
 *	note: ft_usleep get precise timing in millisec
 *   note: need ft_usleep because get_time() is in millisec
 */
-int	ft_usleep(long time)
+int	usleep_ms(long time)
 {
 	long	start;
 
-	start = get_time();
-	while ((get_time() - start) < time)
+	start = get_time_ms();
+	while ((get_time_ms() - start) < time)
 		usleep(500);
 	return (0);
 }
@@ -38,7 +38,7 @@ int	ft_usleep(long time)
 *	1. tv_sec is the number of seconds
 *	2. tv_usec is the number of microseconds
 */
-long	get_time(void)
+long	get_time_ms(void)
 {
 	struct timeval	time;
 
@@ -52,7 +52,7 @@ void	philo_say(char *str, t_philo *philo, int id)
 	int	time;
 
 	pthread_mutex_lock(philo->do_lock);
-	time = get_time() - philo->time_start_eat;
+	time = get_time_ms() - philo->time_start_eat;
 	if (philo_done_die(philo) == FALSE)
 	{
 		printf("%d %d %s\n", time, id, str);

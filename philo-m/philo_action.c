@@ -16,7 +16,7 @@
 void	philo_sleep(t_philo *philo)
 {
 	philo_say("is sleeping", philo, philo->philo_id);
-	ft_usleep(philo->time_to_sleep);
+	usleep_ms(philo->time_to_sleep);
 }
 
 /*
@@ -35,7 +35,7 @@ void	philo_eat(t_philo *philo)
 {
 	if (philo->num_philo == 1)
 	{
-		ft_usleep(philo->time_to_die);
+		usleep_ms(philo->time_to_die);
 		return ;
 	}
 	pthread_mutex_lock(philo->right_fork);
@@ -45,10 +45,10 @@ void	philo_eat(t_philo *philo)
 	philo->eating = FLAG_ON;
 	philo_say(EAT, philo, philo->philo_id);
 	pthread_mutex_lock(philo->do_lock);
-	philo->last_meal = get_time();
+	philo->last_meal = get_time_ms();
 	philo->num_meal++;
 	pthread_mutex_unlock(philo->do_lock);
-	ft_usleep(philo->time_to_eat);
+	usleep_ms(philo->time_to_eat);
 	philo->eating = FLAG_OFF;
 	pthread_mutex_unlock(philo->left_fork);
 	pthread_mutex_unlock(philo->right_fork);
