@@ -12,11 +12,14 @@
 
 #include "philo.h"
 
-//check if philo is dead or done eating
-/*
-*	note:
-*	1. philo->done_or_die :: is a pointer to a variable
-*	2. *philo->done_or_die :: is the value of the variable
+/**
+ * @brief check if philo is dead or done eating from "check_philo_condition"
+ * @param philo: the philo struct
+ * @return TRUE if philo is dead or done eating, FALSE if philo 
+ * 		   not dead or done eating
+ * @note 1. if no lock is used, the value of the variable can be 
+ * 			changed in the middle
+ * @note 2. *philo->done_or_die is the value of the variable
 */
 int	philo_done_die(t_philo *philo)
 {
@@ -30,13 +33,14 @@ int	philo_done_die(t_philo *philo)
 	return (FALSE);
 }
 
-//function that check which philo start eating first
-/*
-*	1. even philo wait for 10ms before start
-*		a. purpose of 10ms delay is to make sure it have enough time to 
-		   check if the other philo is dead or done eating
+/**
+ * @brief philo movement function
+ * @param arg: the param was casted to t_philo struct
+ * @note 1. if philo id is even, wait for 1ms (make who start eating first)
+ * @note 2. the "philo_done_die" flag is form check_philo_condition 
+ * 			is true then the philo's will stop all movement
+ * @note 3. philo will eat, sleep, and think
 */
-
 void	philo_move(void *arg)
 {
 	t_philo	*philo;
@@ -52,11 +56,14 @@ void	philo_move(void *arg)
 	}
 }
 
-/*
-*	1. first thread is to check each of second thread condition
-*		a. waiter that check if the philo is dead or done eating
-*	2. second thread is give each philo movement
-*		b. each of the philo movement
+/**
+ * @brief create threads for "each philo" and "check philo condition" and run
+ * @param table: get the philo struct from table
+ * @note 1. if thread creation failed, destroy all mutex
+ * @note 2. if thread join failed, destroy all mutex
+ * @note 3. check_philo_condition thread is to check if philo
+ * 			 is dead or done eating (it can be say as a waiter)
+ * @note 4. philo_move thread is to give each philo movement
 */
 void	start_table(t_table *table)
 {

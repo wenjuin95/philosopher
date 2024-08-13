@@ -12,9 +12,14 @@
 
 #include "philo.h"
 
-//function to check if philo is dead for "check_dead"
-/*
-*	1. (get_time() - philo->last_meal) is the time since philo last ate
+/**
+ * @brief check if philo is dead
+ * @param philo: the philo struct
+ * @param time_to_die: the time to die
+ * @return TRUE if philo is dead, FALSE if philo is not dead
+ * @note 1. if the current time - last meal time is more than
+ * 			or equal to time to die and philo is not eating
+ * @note 2. if no lock is used, the value of the variable can be in the middle
 */
 int	philo_die(t_philo *philo, int time_to_die)
 {
@@ -29,7 +34,12 @@ int	philo_die(t_philo *philo, int time_to_die)
 	return (FALSE);
 }
 
-//check if philo is dead
+/**
+ * @brief check if philo is dead then print "died" and return the flag to
+ * 		  "philo_move" to stop all philo movement
+ * @param philo: the philo struct
+ * @return TRUE if philo is dead, FALSE if philo is not dead
+*/
 int	check_dead(t_philo *philo)
 {
 	int	i;
@@ -49,10 +59,16 @@ int	check_dead(t_philo *philo)
 	return (FALSE);
 }
 
-/*
-*	1. finish_eating++ :: hold the number of philo that has finished eating
-*	(if finish_eating = 1 it always count only 1 philo finish eating)
-*	2. finish_eating == philo->num_philo :: all philo has finished eating
+/**
+ * @brief check if philo has finished eating
+ * @param philo: the philo struct
+ * @return TRUE if all philo has finished eating, FALSE if not
+ * @note 1. if philo->num_for_philo_eat is -1, return FALSE because is a error
+ * @note 2. if the number of meal that philo need to eat is equal to the number
+ * 			of philo that has finished eating, increment the finish_eating
+ * @note 3. if every philo get the same "finish_eating" value, return the flag
+ * 			to "philo_move" to stop all philo movement
+ * @note 4. if no lock is used, the value of the variable can be in the middle
 */
 int	check_done_eating(t_philo *philo)
 {
@@ -80,10 +96,10 @@ int	check_done_eating(t_philo *philo)
 	return (FALSE);
 }
 
-/*
-*	note:
-*	1. check_dead: check is philo die
-*	2. check_done_eating: check the number given to eat had done
+/**
+ * @brief check philo condition (waiter)
+ * @param arg: the param was casted to t_philo struct
+ * @note 1. if philo is dead or done eating, break the loop
 */
 void	check_philo_condition(void *arg)
 {

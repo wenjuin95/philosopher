@@ -3,15 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: welow <welow@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: welow < welow@student.42kl.edu.my>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 15:07:18 by welow             #+#    #+#             */
-/*   Updated: 2024/05/21 10:58:55 by welow            ###   ########.fr       */
+/*   Updated: 2024/08/13 14:00:01 by welow            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+/**
+ * @brief check all input and give error message if invalid
+ * @param av: input arguments
+ * @return 0 if valid, 1 if invalid
+ * @note 1. check all nb is within INT_MAX
+ * @note 2. check number of philo is between 1 and 200
+ * @note 3. check time is at least 60ms
+ * @note 4. check number of meal is at least 1
+*/
 int	check_input(char **av)
 {
 	check_digit(av);
@@ -41,7 +50,13 @@ int	check_input(char **av)
 	return (0);
 }
 
-//function is to initialize table mutex(locker)
+/**
+ * @brief assign a die and do lock for each philo
+ * @param table: table struct
+ * @param av: number of philo input
+ * @note 1. get the number of philo for assign the lock
+ * @note 2. initialize the done and die flag
+*/
 void	init_table(t_table *table, char **av)
 {
 	table->num_philo = ft_atol(av[1]);
@@ -56,12 +71,13 @@ void	init_table(t_table *table, char **av)
 	pthread_mutex_init(&table->do_lock, NULL);
 }
 
-//function is to assign al value to philo struct
-/*
-*	1. philo_id: id of philo (+1 to avoid 0)
-*	2. i == 0 is the first philo, so right fork will be the last philo fork
-*	else, right fork will be the previous philo fork
-*	3. each philo will have their own left fork and right fork
+/** 
+ * @brief initialize all philo struct
+ * @param table: get the philo struct from table
+ * @param av: input arguments
+ * @note 1. id (i + 1) to avoid -1
+ * @note 2. i == 0 is to set who have the right fork
+ * @note 3. all philo have a fork but the fork was the left fork
 */
 void	init_philo(t_table *table, char **av)
 {
@@ -89,7 +105,10 @@ void	init_philo(t_table *table, char **av)
 	}
 }
 
-//function is to give each philo fork a mutex(locker)
+/**
+ * @brief give each of philo a fork lock
+ * @param table: get the fork lock from table	
+*/
 void	init_fork(t_table *table)
 {
 	int	i;
