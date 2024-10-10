@@ -6,13 +6,16 @@
 /*   By: welow < welow@student.42kl.edu.my>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 13:11:03 by welow             #+#    #+#             */
-/*   Updated: 2024/05/13 13:43:53 by welow            ###   ########.fr       */
+/*   Updated: 2024/08/13 14:40:35 by welow            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-//this function is to delete all the mutex
+/**
+ * @brief destroy all the mutex after the program is done or error
+ * @param table get the lock from table struct
+*/
 void	destroy_all_mutex(t_table *table)
 {
 	int	i;
@@ -24,7 +27,11 @@ void	destroy_all_mutex(t_table *table)
 		pthread_mutex_destroy(&table->fork[i]);
 }
 
-//use atol to make sure not to overflow
+/**
+ * @brief convert string to number (use long for big number)
+ * @param str the string to convert
+ * @return the number
+*/
 long	ft_atol(const char *str)
 {
 	int		sign;
@@ -52,7 +59,11 @@ long	ft_atol(const char *str)
 	return (sign * res);
 }
 
-//check the input only have number
+/**
+ * @brief check the input only have number
+ * @param av the argument from main
+ * @return 0 if is a number else 1 if not a number
+*/
 int	check_digit(char **av)
 {
 	int	i;
