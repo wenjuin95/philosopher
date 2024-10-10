@@ -47,7 +47,7 @@ void	philo_move(void *arg)
 
 	philo = arg;
 	if (philo->philo_id % 2 == 0)
-		usleep_ms(1);
+		usleep_ms(3);
 	while (philo_done_die(philo) == FALSE)
 	{
 		philo_eat(philo);

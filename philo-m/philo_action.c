@@ -41,8 +41,8 @@ void	philo_eat(t_philo *philo)
 		return ;
 	}
 	pthread_mutex_lock(philo->right_fork);
-	philo_say("has taken a fork", philo, philo->philo_id);
 	pthread_mutex_lock(philo->left_fork);
+	philo_say("has taken a fork", philo, philo->philo_id);
 	philo_say("has taken a fork", philo, philo->philo_id);
 	philo_say(EAT, philo, philo->philo_id);
 	pthread_mutex_lock(philo->do_lock);
