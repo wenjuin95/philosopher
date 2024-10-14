@@ -6,7 +6,9 @@ CFLAGS = -Wall -Wextra -Werror
 
 SRC = philo.c utils.c utils_2.c start_table.c philo_condition.c  philo_action.c
 
-OBJ_SRC = $(SRC:.c=.o)
+OBJ_FOLDER = object_files
+
+OBJ_SRC = $(SRC:%.c=$(OBJ_FOLDER)/%.o)
 
 # color
 GREEN = \033[0;32m
@@ -19,11 +21,14 @@ $(NAME) : $(OBJ_SRC)
 	@echo "${GREEN}-----COMPILED DONE-----\n${RESET}"
 
 
-%.o : %.c
+$(OBJ_FOLDER)/%.o : %.c | $(OBJ_FOLDER)
 	$(CC) $(CFLAGS) -c $< -o $@
 
+$(OBJ_FOLDER):
+	@mkdir -p $(OBJ_FOLDER)
+
 clean :
-	rm -f $(OBJ_SRC)
+	rm -f $(OBJ_FOLDER)
 
 fclean : clean
 	rm -f $(NAME)

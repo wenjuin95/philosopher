@@ -64,6 +64,14 @@ void	philo_move(void *arg)
  * @note 3. check_philo_condition thread is to check if philo
  * 			 is dead or done eating (it can be say as a waiter)
  * @note 4. philo_move thread is to give each philo movement
+ * @note 5. pthread_create(pram1, pram2, pram3, pram4): create a thread
+ * 			pram1: thread id
+ * 			pram2: thread attribute (NULL for default)
+ * 			pram3: function to run
+ * 			pram4: argument to pass to the function
+ * @note 6. pthread_join(pram1, pram2): wait for the thread to finish
+ * 			pram1: thread id
+ * 			pram2: return value from the thread
 */
 void	start_table(t_table *table)
 {
