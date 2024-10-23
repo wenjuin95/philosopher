@@ -2,7 +2,7 @@ NAME = philo
 
 CC = gcc
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -fsanitize=thread
 
 SRC = philo.c utils.c utils_2.c start_table.c philo_condition.c  philo_action.c
 
@@ -28,7 +28,7 @@ $(OBJ_FOLDER):
 	@mkdir -p $(OBJ_FOLDER)
 
 clean :
-	rm -f $(OBJ_FOLDER)
+	rm -rf $(OBJ_FOLDER)
 
 fclean : clean
 	rm -f $(NAME)
