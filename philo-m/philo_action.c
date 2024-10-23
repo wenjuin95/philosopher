@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: welow < welow@student.42kl.edu.my>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/11 18:11:14 by welow             #+#    #+#             */
-/*   Updated: 2024/04/11 18:11:14 by welow            ###   ########.fr       */
+/*   Created: 2024/10/23 23:04:45 by welow             #+#    #+#             */
+/*   Updated: 2024/10/23 23:04:45 by welow            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,15 @@ void	philo_sleep(t_philo *philo)
  * @param philo get philo forks
  * @note 1. if philo id is even, he will lock the right fork first
  * @note 2. if philo id is odd, he will lock the left fork first
+ * @note warning if not implement this function:
+ * 		 The warning from ThreadSanitizer indicates a potential 
+ *		 deadlock due to lock-order inversion, but it doesn't 
+ *		 necessarily mean that a deadlock will always occur. 
+ *		 In your test, it seems that the philosophers managed to 
+ *		 acquire the forks without deadlocking, but the potential 
+ *		 for deadlock still exists.
 */
-void handle_two_philo_fork(t_philo *philo)
+void	handle_two_philo_fork(t_philo *philo)
 {
 	pthread_mutex_t	*l_fork;
 	pthread_mutex_t	*r_fork;

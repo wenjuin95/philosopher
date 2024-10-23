@@ -2,6 +2,7 @@
 #include <unistd.h> // Include unistd.h for usleep()
 #include <sys/time.h> // Include sys/time.h for gettimeofday()
 #include <math.h>
+#include <stdlib.h>
 
 #define BLUE "\033[0;34m"
 #define RED "\033[0;31m"
@@ -44,7 +45,7 @@
 /*      show how the ft_usleep function works          */
 /*******************************************************/
 
-#define TIME 200 //milisec
+#define TIME atoi(av[1]) //milisec
 #define SLEEP_TIME 500 //microsec if milisec is 0.5
 #define INCREASE SLEEP_TIME / 1000.0
 #define TIME_DIFF SLEEP_TIME / 1000.0
@@ -59,8 +60,9 @@ double get_time(void)
 	return milisec;
 }
 
-int main()
+int main(int ac, char **av)
 {
+	(void)ac;
     double start_time = get_time();
     double time_diff;
     double increase = 0.0;

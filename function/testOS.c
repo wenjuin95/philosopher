@@ -9,6 +9,7 @@
 
 void event_handler(int signum)
 {
+	(void)signum;
     static unsigned long cnt = 0;
     static struct timeval tsFirst;
     if (cnt == 0)
