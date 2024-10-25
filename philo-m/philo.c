@@ -6,7 +6,7 @@
 /*   By: welow < welow@student.42kl.edu.my>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 15:07:18 by welow             #+#    #+#             */
-/*   Updated: 2024/08/13 14:00:01 by welow            ###   ########.fr       */
+/*   Updated: 2024/10/26 00:11:58 by welow            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,9 @@ void	init_table(t_table *table, char **av)
  * @brief initialize all philo struct
  * @param table: get the philo struct from table
  * @param av: input arguments
- * @note 1. id (i + 1) to avoid -1
- * @note 2. i == 0 is to set who have the right fork
- * @note 3. all philo have a fork but the fork was the left fork
+ * @note 1. if philo is the first philo, assign the right fork 
+ * 			is last philo fork else assign the right fork is 
+ * 			the previous philo fork
 */
 void	init_philo(t_table *table, char **av)
 {
