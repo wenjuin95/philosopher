@@ -6,7 +6,7 @@
 /*   By: welow < welow@student.42kl.edu.my>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 15:07:18 by welow             #+#    #+#             */
-/*   Updated: 2024/08/13 14:00:01 by welow            ###   ########.fr       */
+/*   Updated: 2024/10/26 00:05:48 by welow            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,17 @@ void	init_table(t_table *table, char **av)
  * @brief initialize all philo struct
  * @param table: get the philo struct from table
  * @param av: input arguments
- * @note 1. id (i + 1) to avoid -1
- * @note 2. i == 0 is to set who have the right fork
- * @note 3. all philo have a fork but the fork was the left fork
+ * @note 1. if philo is even, left fork is lower-indexed, right fork is 
+ * 			higher-indexed (to prevent deadlock)
+ * @note 2. odd philo left fork will smaller than right fork
+ * @note 3. even philo left fork will bigger than right fork
+ * @note 4. example: 5 philo [p1, p2, p3, p4, p5]
+ * 					 5 fork [f0, f1, f2, f3, f4]
+ * 					 p1(0): f0, f1 [L, H]
+ * 					 p2(1): f2, f1 [H, L]
+ * 					 p3(2): f2, f3 [L, H]
+ * 					 p4(3): f4, f3 [H, L]
+ * 					 p5(4): f4, f0 [L, H]
 */
 void	init_philo(t_table *table, char **av)
 {
@@ -96,12 +104,17 @@ void	init_philo(t_table *table, char **av)
 		table->philo[i].dead_lock = &table->dead_lock;
 		table->philo[i].do_lock = &table->do_lock;
 		table->philo[i].done_or_die = &table->done_or_die;
-		table->philo[i].left_fork = &table->fork[i];
-		if (i == 0)
-			table->philo[i].right_fork = &table->fork
-			[table->philo[i].num_philo - 1];
+		if (i % 2 == 0)
+		{
+			table->philo[i].left_fork = &table->fork[i];
+			table->philo[i].right_fork = &table->fork[(i + 1) % table->num_philo];
+		}
 		else
-			table->philo[i].right_fork = &table->fork[i - 1];
+		{
+			table->philo[i].left_fork = &table->fork[(i + 1) % table->num_philo];
+			table->philo[i].right_fork = &table->fork[i];
+		}
+
 	}
 }
 
