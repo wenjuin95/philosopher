@@ -2,7 +2,7 @@ NAME = philo
 
 CC = gcc
 
-CFLAGS = -Wall -Wextra -Werror -fsanitize=thread
+CFLAGS = -Wall -Wextra -Werror -fsanitize=thread 
 
 SRC = philo.c utils.c utils_2.c start_table.c philo_condition.c  philo_action.c
 
@@ -17,7 +17,7 @@ RESET = \033[0m
 all: $(NAME)
 
 $(NAME) : $(OBJ_SRC)
-	$(CC) $(CFLAGS) $(OBJ_SRC) -o $@
+	$(CC) $(CFLAGS) $(OBJ_SRC) -o $@ -lpthread
 	@echo "${GREEN}-----COMPILED DONE-----\n${RESET}"
 
 
