@@ -46,7 +46,7 @@
 /*******************************************************/
 
 #define TIME atoi(av[1]) //milisec
-#define SLEEP_TIME 500 //microsec if milisec is 0.5
+#define SLEEP_TIME 100 //microsec if milisec is 0.5
 #define INCREASE SLEEP_TIME / 1000.0
 #define TIME_DIFF SLEEP_TIME / 1000.0
 
@@ -69,7 +69,7 @@ int main(int ac, char **av)
     double iteration_start_time, iteration_end_time, iteration_time_diff;
 	int position = 0;
 
-    while ((get_time() - start_time) < TIME)
+    while ((get_time() - start_time) <= TIME)
     {
 
         iteration_start_time = get_time();

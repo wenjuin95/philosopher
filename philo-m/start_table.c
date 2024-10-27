@@ -57,7 +57,7 @@ void	philo_move(void *arg)
 }
 
 /**
- * @brief create threads for "each philo" and "check philo condition" and run
+ * @brief create threads for "each philo" and "check philo condition"
  * @param table: get the philo struct from table
  * @note 1. if thread creation failed, destroy all mutex
  * @note 2. if thread join failed, destroy all mutex

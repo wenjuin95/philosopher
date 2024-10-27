@@ -51,11 +51,10 @@ int	check_input(char **av)
 }
 
 /**
- * @brief assign a die and do lock for each philo
+ * @brief initialize number of philo, philo struct, fork struct
+ * 		  , set done and die flag, and initialize the movement locks
  * @param table: table struct
  * @param av: number of philo input
- * @note 1. get the number of philo for assign the lock
- * @note 2. initialize the done and die flag
 */
 void	init_table(t_table *table, char **av)
 {
@@ -72,7 +71,7 @@ void	init_table(t_table *table, char **av)
 }
 
 /** 
- * @brief initialize all philo struct
+ * @brief initialize philo sturct
  * @param table: get the philo struct from table
  * @param av: input arguments
  * @note 1. if philo is the first philo, assign the right fork 
@@ -106,7 +105,7 @@ void	init_philo(t_table *table, char **av)
 }
 
 /**
- * @brief give each of philo a fork lock
+ * @brief set each philo a fork lock
  * @param table: get the fork lock from table	
 */
 void	init_fork(t_table *table)

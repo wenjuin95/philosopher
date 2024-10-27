@@ -19,7 +19,6 @@
  * @return TRUE if philo is dead, FALSE if philo is not dead
  * @note 1. if the current time - last meal time is more than
  * 			or equal to time to die and philo is not eating
- * @note 2. if no lock is used, the value of the variable can be in the middle
 */
 int	philo_die(t_philo *philo, int time_to_die)
 {
@@ -68,7 +67,6 @@ int	check_dead(t_philo *philo)
  * 			of philo that has finished eating, increment the finish_eating
  * @note 3. if every philo get the same "finish_eating" value, return the flag
  * 			to "philo_move" to stop all philo movement
- * @note 4. if no lock is used, the value of the variable can be in the middle
 */
 int	check_done_eating(t_philo *philo)
 {
@@ -83,7 +81,7 @@ int	check_done_eating(t_philo *philo)
 	{
 		pthread_mutex_lock(philo->do_lock);
 		if (philo[i].num_meal >= philo[i].num_for_philo_eat)
-			finish_eating++;
+			finish_eating += 1;
 		pthread_mutex_unlock(philo->do_lock);
 	}
 	if (finish_eating == philo->num_philo)
