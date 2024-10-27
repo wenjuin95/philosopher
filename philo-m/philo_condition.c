@@ -49,9 +49,9 @@ int	check_dead(t_philo *philo)
 		if (philo_die(&philo[i], philo[i].time_to_die) == TRUE)
 		{
 			philo_say("died", &philo[i], philo[i].philo_id);
-			pthread_mutex_lock(philo->dead_lock);
+			pthread_mutex_lock(philo->dead_or_done_lock);
 			*philo->done_or_die = FLAG_ON;
-			pthread_mutex_unlock(philo->dead_lock);
+			pthread_mutex_unlock(philo->dead_or_done_lock);
 			return (TRUE);
 		}
 	}
@@ -86,9 +86,9 @@ int	check_done_eating(t_philo *philo)
 	}
 	if (finish_eating == philo->num_philo)
 	{
-		pthread_mutex_lock(philo->dead_lock);
+		pthread_mutex_lock(philo->dead_or_done_lock);
 		*philo->done_or_die = FLAG_ON;
-		pthread_mutex_unlock(philo->dead_lock);
+		pthread_mutex_unlock(philo->dead_or_done_lock);
 		return (TRUE);
 	}
 	return (FALSE);

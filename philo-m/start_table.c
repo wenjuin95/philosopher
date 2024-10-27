@@ -23,13 +23,13 @@
 */
 int	philo_done_die(t_philo *philo)
 {
-	pthread_mutex_lock(philo->dead_lock);
+	pthread_mutex_lock(philo->dead_or_done_lock);
 	if (*philo->done_or_die == FLAG_ON)
 	{
-		pthread_mutex_unlock(philo->dead_lock);
+		pthread_mutex_unlock(philo->dead_or_done_lock);
 		return (TRUE);
 	}
-	pthread_mutex_unlock(philo->dead_lock);
+	pthread_mutex_unlock(philo->dead_or_done_lock);
 	return (FALSE);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: welow <welow@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: welow < welow@student.42kl.edu.my>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 11:20:21 by welow             #+#    #+#             */
-/*   Updated: 2024/05/21 11:18:33 by welow            ###   ########.fr       */
+/*   Updated: 2024/10/27 23:51:39 by welow            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,9 @@ typedef struct s_philo
 	pthread_t		thread;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
-	pthread_mutex_t	*dead_lock;
+	pthread_mutex_t	*dead_or_done_lock;
 	pthread_mutex_t	*do_lock;
+	pthread_mutex_t	*say_lock;
 }	t_philo;
 
 /*
@@ -78,8 +79,9 @@ typedef struct s_table
 {
 	int				num_philo;
 	int				done_or_die;
-	pthread_mutex_t	dead_lock;
+	pthread_mutex_t	dead_or_done_lock;
 	pthread_mutex_t	do_lock;
+	pthread_mutex_t	say_lock;
 	pthread_mutex_t	*fork;
 	t_philo			*philo;
 }	t_table;

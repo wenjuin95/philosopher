@@ -59,13 +59,13 @@ void	philo_say(char *str, t_philo *philo, int id)
 {
 	int	time;
 
-	pthread_mutex_lock(philo->do_lock);
+	pthread_mutex_lock(philo->say_lock);
 	time = get_time_ms() - philo->time_start_eat;
 	if (philo_done_die(philo) == FALSE)
 	{
 		printf("%d %d %s\n", time, id, str);
 	}
-	pthread_mutex_unlock(philo->do_lock);
+	pthread_mutex_unlock(philo->say_lock);
 }
 
 //assign the time and the number of philo eat to philo struct

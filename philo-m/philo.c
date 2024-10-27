@@ -6,7 +6,7 @@
 /*   By: welow < welow@student.42kl.edu.my>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 15:07:18 by welow             #+#    #+#             */
-/*   Updated: 2024/10/27 22:18:49 by welow            ###   ########.fr       */
+/*   Updated: 2024/10/27 23:52:07 by welow            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,9 @@ void	init_table(t_table *table, char **av)
 	if (table->fork == NULL)
 		return ;
 	table->done_or_die = FLAG_OFF;
-	pthread_mutex_init(&table->dead_lock, NULL);
+	pthread_mutex_init(&table->dead_or_done_lock, NULL);
 	pthread_mutex_init(&table->do_lock, NULL);
+	pthread_mutex_init(&table->say_lock, NULL);
 }
 
 /** 
@@ -92,8 +93,9 @@ void	init_philo(t_table *table, char **av)
 		table->philo[i].time_start_eat = get_time_ms();
 		table->philo[i].last_meal = get_time_ms();
 		assign_time(&table->philo[i], av);
-		table->philo[i].dead_lock = &table->dead_lock;
+		table->philo[i].dead_or_done_lock = &table->dead_or_done_lock;
 		table->philo[i].do_lock = &table->do_lock;
+		table->philo[i].say_lock = &table->say_lock;
 		table->philo[i].done_or_die = &table->done_or_die;
 		table->philo[i].left_fork = &table->fork[i];
 		if (i == 0)
