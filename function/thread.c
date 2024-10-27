@@ -8,8 +8,8 @@
 
 void mult_function(void);
 void sum_function(void);
-void *thread(void);
-void *thread2(void);
+void thread(void);
+void thread2(void);
 
 /*  visualize thread
 *	sum                        mult
@@ -70,7 +70,7 @@ int main() //thread
 
 ////////////////////////////////////////////////////////////////////////
 
-void *thread(void)
+void thread(void)
 {
 	int i = 1;
 	int j = 2;
@@ -78,10 +78,9 @@ void *thread(void)
 	printf("%sload sum...%s\n", BLUE, RESET);
 	sleep(1);
 	printf("%ssum: %d%s\n", BLUE, sum, RESET);
-	return NULL;
 }
 
-void *thread2(void)
+void thread2(void)
 {
 	int a = 2;
 	int b = 2;
@@ -89,7 +88,6 @@ void *thread2(void)
 	printf("%sload mult...%s\n", GREEN, RESET);
 	sleep(1);
 	printf("%smult: %d%s\n", GREEN, mult, RESET);
-	return NULL;
 }
 
 void sum_function(void)

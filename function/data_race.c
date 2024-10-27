@@ -24,17 +24,6 @@ int bank_balance = 1000; //shared data
 *	result: 800 or 1100
 */
 
-/******* no thread: won't share the same data*************************/
-// int main()
-// {
-// 	//without thread you won't see data race but the time is slower
-// 	deposit();
-// 	withdraw();
-// 	printf("latest bank balance: %d\n", bank_balance);
-// 	return 0;
-// }
-
-/***************** with thread ***************************************/
 int main()
 {
 	pthread_t t1, t2;
@@ -70,13 +59,11 @@ void withdraw(void)
 
 void write_b(int new_amount) 
 {
-	usleep(100000);
 	bank_balance = new_amount;
 }
 
 int read_b()
 {
-	usleep(100000);
 	return bank_balance;
 }
 
