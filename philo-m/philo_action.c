@@ -35,6 +35,11 @@ void	philo_sleep(t_philo *philo)
 */
 void	philo_eat(t_philo *philo)
 {
+	if (philo->num_philo == 1)
+	{
+		usleep_ms(philo->time_to_die);
+		return ;
+	}
 	pthread_mutex_lock(philo->right_fork);
 	pthread_mutex_lock(philo->left_fork);
 	philo_say("has taken a fork", philo, philo->philo_id);
