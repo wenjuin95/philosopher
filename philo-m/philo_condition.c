@@ -65,8 +65,10 @@ int	check_dead(t_philo *philo)
  * @note 1. if philo->num_for_philo_eat is -1, return FALSE because is a error
  * @note 2. if the number of meal that philo need to eat is equal to the number
  * 			of philo that has finished eating, increment the finish_eating
- * @note 3. if every philo get the same "finish_eating" value, return the flag
- * 			to "philo_move" to stop all philo movement
+ * @note 3. "finish_eating" is a flag that record each of the philo has eaten
+ * 			the number of meal that they need to eat
+ * @note 4. if finish_eating is equal to the number of philo means all philo
+ * 			has finished eating, set the done_or_die flag to TRUE
 */
 int	check_done_eating(t_philo *philo)
 {

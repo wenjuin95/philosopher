@@ -35,7 +35,6 @@ void	philo_sleep(t_philo *philo)
 */
 void	philo_eat(t_philo *philo)
 {
-
 	pthread_mutex_lock(philo->right_fork);
 	pthread_mutex_lock(philo->left_fork);
 	philo_say("has taken a fork", philo, philo->philo_id);
