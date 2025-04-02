@@ -21,11 +21,11 @@ if [[ $# -eq 5 || $# -eq 6 ]]; then
 		fi
 	elif [ "$(uname)" = "Linux" ]; then
 		# 2>&1 is used to redirect stderr to stdout so that we can grep on it
-		if valgrind "$@" 2>&1 | grep -q "All heap blocks were freed -- no leaks are possible"; then
+		if valgrind --tool=helgrind "$@" 2>&1 | grep -q "All heap blocks were freed -- no leaks are possible"; then
 			echo -e "\033[0;32mno leak\033[0m"
 		else
 			echo -e "\n"
-			valgrind "$@"
+			valgrind --tool=helgrind "$@"
 		fi
 	fi
 fi
