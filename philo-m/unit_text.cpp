@@ -40,10 +40,10 @@ int main()
 	{
 		if (eating_count[i] > 0)
 		{
-			std::cout << "Philosopher " << i << " ate " << eating_count[i] << " times." << std::endl;
+			std::cout << "Philosopher " << i << " eat " << eating_count[i] << " time" << std::endl;
 		}
 	}
-	std::cout << "Total eating: " << total_eat << std::endl;
+	std::cout << "Total eat: " << total_eat << std::endl;
 
 	file.close();
 	return 0;
